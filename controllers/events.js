@@ -5,6 +5,8 @@ const {
   seedEventsTable,
   fetchSingleEventQuery,
   createEventQuery,
+  updateEventQuery,
+  deleteEventQuery,
 } = require("../queries/events");
 
 async function getAllEvents(req, res) {
@@ -36,35 +38,41 @@ const getSingleEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const query = createEventQuery(req.body); // Corrected function call
+  const query = createEventQuery(req.body);
   try {
     await client.query(query);
-    res.send({ message: "Successfully created event" }); // Sending a success message
+    res.send({ message: "Successfully created event" });
   } catch (error) {
-    console.error("Error creating event:", error); // Corrected console message
+    console.error("Error creating event:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
-// const updateEvent = async (req, res) => {
-//   if (req.body.email !== null) {
-//     res.user.email = req.body.email;
-//   }
-//   try {
-//     const updatedEvent = await res.user.save();
-//     res.json(updatedEvent);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+const updateEvent = async (req, res) => {
+  const query = updateEventQuery(req.params.id, req.body);
+  try {
+    await client.query(query);
+    await res.send({ message: "Successfully updated event" });
+  } catch (error) {
+    console.error("Error updating event:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+const deleteEvent = async (req, res) => {
+  const query = deleteEventQuery(req.params.id);
+  try {
+    await client.query(query);
+    await res.send({ message: "Successfully deleted event" });
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
-// const deleteEvent = async (req, res) => {
-//   try {
-//     await res.user.remove();
-//     res.json({ message: "Deleted Adacta's Event" });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
-module.exports = { getAllEvents, getSingleEvent, createEvent };
+module.exports = {
+  getAllEvents,
+  getSingleEvent,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+};

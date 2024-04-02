@@ -27,10 +27,33 @@ const createEventQuery = (body) => {
     values: [body.title, body.description, body.images, body.category], // Passing values separately to prevent SQL injection
   };
 };
+const updateEventQuery = (eventId, newData) => {
+  return {
+    name: "update-event",
+    text: `UPDATE events SET title = $1, description = $2, images = $3, category = $4 WHERE id = $5`,
+    values: [
+      newData.title,
+      newData.description,
+      newData.images,
+      newData.category,
+      eventId,
+    ],
+  };
+};
+
+const deleteEventQuery = (eventId) => {
+  return {
+    name: "delete-event",
+    text: "DELETE FROM events WHERE id = $1",
+    values: [eventId],
+  };
+};
 
 module.exports = {
   createEventsTableQuery,
   fetchEventsQuery,
   fetchSingleEventQuery,
   createEventQuery,
+  updateEventQuery,
+  deleteEventQuery,
 };

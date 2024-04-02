@@ -1,7 +1,5 @@
 const express = require("express");
-// const getSingleEvent = require("../middleware/event.middleware");
 const {
-  addEvent,
   deleteEvent,
   getAllEvents,
   updateEvent,
@@ -14,7 +12,7 @@ const eventRoutes = express.Router();
 eventRoutes.get("/", getAllEvents);
 eventRoutes.get("/:id", getSingleEvent);
 eventRoutes.post("/", createEvent);
-// eventRoutes.patch("/:id", getSingleEvent, updateEvent);
-// eventRoutes.delete("/:id", getSingleEvent, deleteEvent);
+eventRoutes.patch("/:id", updateEvent);
+eventRoutes.delete("/:id", deleteEvent);
 
 module.exports = eventRoutes;

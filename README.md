@@ -21,3 +21,15 @@
 
 - `npm i`
 - `npm start`
+
+### Available Routes
+
+`const eventBody = {title, description, category, images}`
+
+|     Route     |  Method  |    Body     |
+| :-----------: | :------: | :---------: |
+|   `/events`   |  `GET`   |     `/`     |
+| `/events/:id` |  `GET`   |     `/`     |
+|   `/events`   |  `POST`  | `eventBody` |
+| `/events/:id` | `PATCH`  | `eventBody` |
+| `/events/:id` | `DELETE` |     `/`     |
