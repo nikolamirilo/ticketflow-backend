@@ -2,12 +2,12 @@ const { client } = require("../lib/database.config");
 const {
   fetchEventsQuery,
   createEventsTableQuery,
-  seedEventsTable,
   fetchSingleEventQuery,
   createEventQuery,
   updateEventQuery,
   deleteEventQuery,
 } = require("../queries/events");
+const { seedEventsTable } = require("../seed");
 
 async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']
