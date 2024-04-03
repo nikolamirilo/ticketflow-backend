@@ -1,4 +1,4 @@
-const createUsersTableQuery = {
+export const createUsersTableQuery = {
   name: "create-table-users",
   text: `CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
@@ -8,18 +8,18 @@ const createUsersTableQuery = {
       role VARCHAR(100)
   );`,
 };
-const fetchUsersQuery = {
+export const fetchUsersQuery = {
   name: "fetch-users",
   text: `SELECT * FROM users`,
 };
-const fetchSingleUserQuery = (id) => {
+export const fetchSingleUserQuery = (id) => {
   return {
     name: "fetch-single-event",
     text: `SELECT * FROM users WHERE id=$1`,
     values: [id],
   };
 };
-const createUserQuery = (body) => {
+export const createUserQuery = (body) => {
   return {
     name: "create-event",
     text: `INSERT INTO users (full_name, email, image, role) VALUES
@@ -27,7 +27,7 @@ const createUserQuery = (body) => {
     values: [body.full_name, body.email, body.image, body.role], // Passing values separately to prevent SQL injection
   };
 };
-const updateUserQuery = (uid, newData) => {
+export const updateUserQuery = (uid, newData) => {
   return {
     name: "update-event",
     text: `UPDATE users SET full_name = $1, email = $2, image = $3, role = $4 WHERE id = $5`,
@@ -41,19 +41,10 @@ const updateUserQuery = (uid, newData) => {
   };
 };
 
-const deleteUserQuery = (uid) => {
+export const deleteUserQuery = (uid) => {
   return {
     name: "delete-event",
     text: "DELETE FROM users WHERE id = $1",
     values: [uid],
   };
-};
-
-module.exports = {
-  createUsersTableQuery,
-  fetchUsersQuery,
-  fetchSingleUserQuery,
-  createUserQuery,
-  updateUserQuery,
-  deleteUserQuery,
 };

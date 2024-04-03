@@ -1,13 +1,13 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger_output.json");
-const eventRoutes = require("./routes/events");
-const { client } = require("./lib/database.config");
-const userRoutes = require("./routes/users");
-const allRoutes = require("./routes");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "./swagger_output.json" assert { type: "json" };
+import { allRoutes } from "./routes/index.js";
+import { client } from "./lib/database.config.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 

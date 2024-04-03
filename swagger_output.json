@@ -31,44 +31,6 @@
           "Events"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "Exit festival"
-                },
-                "category": {
-                  "type": "string",
-                  "example": "festival"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "The most popular festival in Eeastern Europe"
-                },
-                "images": {
-                  "type": "array",
-                  "example": [
-                    "https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [
-                "title",
-                "category",
-                "description",
-                "images"
-              ]
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -113,42 +75,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "Exit festival 2024"
-                },
-                "category": {
-                  "type": "string",
-                  "example": "festival"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "The most popular festival in Eeastern Europe and world"
-                },
-                "images": {
-                  "type": "array",
-                  "example": [
-                    "https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "required": [
-                "title",
-                "category",
-                "description",
-                "images"
-              ]
-            }
           }
         ],
         "responses": {

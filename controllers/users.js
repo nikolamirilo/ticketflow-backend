@@ -1,15 +1,15 @@
-const { client } = require("../lib/database.config");
-const {
+import { client } from "../lib/database.config.js";
+import {
   fetchUsersQuery,
   createUsersTableQuery,
   fetchSingleUserQuery,
   createUserQuery,
   updateUserQuery,
   deleteUserQuery,
-} = require("../queries/users");
-const { seedUsersTable } = require("../seed");
+} from "../queries/users.js";
+import { seedUsersTable } from "../seed/index.js";
 
-async function getAllUsers(req, res) {
+export async function getAllUsers(req, res) {
   // #swagger.tags = ['Users']
   try {
     await client.query(createUsersTableQuery);
@@ -27,7 +27,7 @@ async function getAllUsers(req, res) {
   }
 }
 
-const getSingleUser = async (req, res) => {
+export async function getSingleUser(req, res) {
   // #swagger.tags = ['Users']
   const query = fetchSingleUserQuery(req.params.id);
   try {
@@ -37,9 +37,9 @@ const getSingleUser = async (req, res) => {
     console.error("Error fetching single user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+}
 
-const createUser = async (req, res) => {
+export async function createUser(req, res) {
   // #swagger.tags = ['Users']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -59,9 +59,9 @@ const createUser = async (req, res) => {
     console.error("Error creating user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+}
 
-const updateUser = async (req, res) => {
+export async function updateUser(req, res) {
   // #swagger.tags = ['Users']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -81,8 +81,8 @@ const updateUser = async (req, res) => {
     console.error("Error updating user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
-const deleteUser = async (req, res) => {
+}
+export async function deleteUser(req, res) {
   // #swagger.tags = ['Users']
   const query = deleteUserQuery(req.params.id);
   try {
@@ -92,12 +92,4 @@ const deleteUser = async (req, res) => {
     console.error("Error deleting user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
-
-module.exports = {
-  getAllUsers,
-  getSingleUser,
-  createUser,
-  updateUser,
-  deleteUser,
-};
+}

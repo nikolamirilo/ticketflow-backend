@@ -1,11 +1,11 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   deleteEvent,
   getAllEvents,
   updateEvent,
   getSingleEvent,
   createEvent,
-} = require("../controllers/events");
+} from "../controllers/events.js";
 
 const eventRoutes = express.Router();
 
@@ -15,4 +15,4 @@ eventRoutes.post("/events", createEvent);
 eventRoutes.patch("/events/:id", updateEvent);
 eventRoutes.delete("/events/:id", deleteEvent);
 
-module.exports = eventRoutes;
+export default eventRoutes;

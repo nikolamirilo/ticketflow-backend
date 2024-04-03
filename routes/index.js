@@ -1,6 +1,4 @@
-const eventRoutes = require("./events");
-const userRoutes = require("./users");
+import userRoutes from "./users.js";
+import eventRoutes from "./events.js";
 
-const allRoutes = [eventRoutes, userRoutes];
-
-module.exports = allRoutes;
+export const allRoutes = [eventRoutes, userRoutes];
