@@ -7,6 +7,7 @@ const swaggerFile = require("./swagger_output.json");
 const eventRoutes = require("./routes/events");
 const { client } = require("./lib/database.config");
 const userRoutes = require("./routes/users");
+const allRoutes = require("./routes");
 
 const app = express();
 
@@ -17,7 +18,7 @@ const app = express();
   app.use(bodyParser.json());
   app.use(cors());
 
-  app.use("/", eventRoutes, userRoutes);
+  app.use("/", allRoutes);
 
   app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
