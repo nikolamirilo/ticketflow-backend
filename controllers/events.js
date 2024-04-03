@@ -41,6 +41,16 @@ const getSingleEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
   // #swagger.tags = ['Events']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                $title: 'Exit festival',
+                $category: 'festival',
+                $description: 'The most popular festival in Eeastern Europe',
+                $images: ['https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0']
+
+            }
+    } */
   const query = createEventQuery(req.body);
   try {
     await client.query(query);
@@ -53,6 +63,16 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   // #swagger.tags = ['Events']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                $title: 'Exit festival 2024',
+                $category: 'festival',
+                $description: 'The most popular festival in Eeastern Europe and world',
+                $images: ['https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0']
+
+            }
+    } */
   const query = updateEventQuery(req.params.id, req.body);
   try {
     await client.query(query);

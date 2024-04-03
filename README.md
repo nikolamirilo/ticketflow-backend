@@ -24,12 +24,5 @@
 
 ### Available Routes
 
-`const eventBody = {title, description, category, images}`
-
-|     Route     |  Method  |    Body     |
-| :-----------: | :------: | :---------: |
-|   `/events`   |  `GET`   |     `/`     |
-| `/events/:id` |  `GET`   |     `/`     |
-|   `/events`   |  `POST`  | `eventBody` |
-| `/events/:id` | `PATCH`  | `eventBody` |
-| `/events/:id` | `DELETE` |     `/`     |
+- You can find available routes if you hit: `${app_url}/swagger`
+- In development it is: `http://localhost:5000/swagger`
