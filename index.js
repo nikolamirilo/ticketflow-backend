@@ -2,10 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { createEventsTableQuery } = require("./queries/events");
-const { seedEventsTable } = require("./seed");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger_output.json");
 const eventRoutes = require("./routes/events");
 const { client } = require("./lib/database.config");
+const userRoutes = require("./routes/users");
 
 const app = express();
 
@@ -16,7 +17,9 @@ const app = express();
   app.use(bodyParser.json());
   app.use(cors());
 
-  app.use("/events", eventRoutes);
+  app.use("/", eventRoutes, userRoutes);
+
+  app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:5000");

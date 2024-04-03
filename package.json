@@ -6,12 +6,14 @@
   "module": "",
   "scripts": {
     "start": "nodemon index.js",
+    "swagger-autogen": "node swagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "and": "^0.0.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "db-migrate-pg": "^1.5.2",
@@ -19,6 +21,8 @@
     "express": "^4.19.2",
     "mysql": "^2.18.1",
     "nodemon": "^3.1.0",
-    "pg": "^8.11.4"
+    "pg": "^8.11.4",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.0"
   }
 }

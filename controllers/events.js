@@ -10,6 +10,7 @@ const {
 } = require("../queries/events");
 
 async function getAllEvents(req, res) {
+  // #swagger.tags = ['Events']
   try {
     await client.query(createEventsTableQuery);
     const eventsResult = await client.query(fetchEventsQuery);
@@ -27,6 +28,7 @@ async function getAllEvents(req, res) {
 }
 
 const getSingleEvent = async (req, res) => {
+  // #swagger.tags = ['Events']
   const query = fetchSingleEventQuery(req.params.id);
   try {
     const result = await client.query(query);
@@ -38,6 +40,7 @@ const getSingleEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
+  // #swagger.tags = ['Events']
   const query = createEventQuery(req.body);
   try {
     await client.query(query);
@@ -49,6 +52,7 @@ const createEvent = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
+  // #swagger.tags = ['Events']
   const query = updateEventQuery(req.params.id, req.body);
   try {
     await client.query(query);
@@ -59,6 +63,7 @@ const updateEvent = async (req, res) => {
   }
 };
 const deleteEvent = async (req, res) => {
+  // #swagger.tags = ['Events']
   const query = deleteEventQuery(req.params.id);
   try {
     await client.query(query);

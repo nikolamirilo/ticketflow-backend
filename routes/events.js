@@ -9,10 +9,10 @@ const {
 
 const eventRoutes = express.Router();
 
-eventRoutes.get("/", getAllEvents);
-eventRoutes.get("/:id", getSingleEvent);
-eventRoutes.post("/", createEvent);
-eventRoutes.patch("/:id", updateEvent);
-eventRoutes.delete("/:id", deleteEvent);
+eventRoutes.get("/events", getAllEvents);
+eventRoutes.get("/events/:id", getSingleEvent);
+eventRoutes.post("/events", createEvent);
+eventRoutes.patch("/events/:id", updateEvent);
+eventRoutes.delete("/events/:id", deleteEvent);
 
 module.exports = eventRoutes;
