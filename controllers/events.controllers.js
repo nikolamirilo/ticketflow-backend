@@ -6,8 +6,8 @@ import {
   createEventQuery,
   updateEventQuery,
   deleteEventQuery,
-} from "../queries/events.js";
-import { seedEventsTable } from "../seed/index.js";
+} from "../queries/events.queries.js";
+import { seedEventsTable } from "../seed/index.seed.js";
 
 export async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']

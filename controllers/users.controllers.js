@@ -6,8 +6,8 @@ import {
   createUserQuery,
   updateUserQuery,
   deleteUserQuery,
-} from "../queries/users.js";
-import { seedUsersTable } from "../seed/index.js";
+} from "../queries/users.queries.js";
+import { seedUsersTable } from "../seed/index.seed.js";
 
 export async function getAllUsers(req, res) {
   // #swagger.tags = ['Users']

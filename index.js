@@ -3,7 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger_output.json" assert { type: "json" };
-import { allRoutes } from "./routes/index.js";
+import allRoutes from "./routes/index.routes.js";
 import { client } from "./lib/database.config.js";
 import dotenv from "dotenv";
 

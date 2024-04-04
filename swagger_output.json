@@ -31,6 +31,89 @@
           "Events"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Exit festival"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "festival"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "The most popular festival in Eastern Europe"
+                },
+                "images": {
+                  "type": "array",
+                  "example": [
+                    "https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artist": {
+                  "type": "string",
+                  "example": "Various Artists"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "Serbia"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "Novi Sad"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "(45.2671, 19.8335)"
+                },
+                "event_time": {
+                  "type": "string",
+                  "example": "2024-07-06 20:00:00"
+                },
+                "start_date": {
+                  "type": "string",
+                  "example": "2024-07-06"
+                },
+                "end_date": {
+                  "type": "string",
+                  "example": "2024-07-10"
+                },
+                "seat_number": {
+                  "type": "number",
+                  "example": 2000
+                },
+                "seat_area": {
+                  "type": "string",
+                  "example": "General Admission"
+                }
+              },
+              "required": [
+                "title",
+                "category",
+                "description",
+                "images",
+                "artist",
+                "state",
+                "city",
+                "location",
+                "event_time",
+                "start_date",
+                "end_date",
+                "seat_number",
+                "seat_area"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -75,6 +158,87 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Exit festival 2024"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "festival"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "The most popular festival in Eastern Europe and world"
+                },
+                "images": {
+                  "type": "array",
+                  "example": [
+                    "https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "artist": {
+                  "type": "string",
+                  "example": "Various Artists"
+                },
+                "state": {
+                  "type": "string",
+                  "example": "Serbia"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "Novi Sad"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "(45.2671, 19.8335)"
+                },
+                "event_time": {
+                  "type": "string",
+                  "example": "2024-07-06 20:00:00"
+                },
+                "start_date": {
+                  "type": "string",
+                  "example": "2024-07-06"
+                },
+                "end_date": {
+                  "type": "string",
+                  "example": "2024-07-10"
+                },
+                "seat_number": {
+                  "type": "number",
+                  "example": 2000
+                },
+                "seat_area": {
+                  "type": "string",
+                  "example": "General Admission"
+                }
+              },
+              "required": [
+                "title",
+                "category",
+                "description",
+                "images",
+                "artist",
+                "state",
+                "city",
+                "location",
+                "event_time",
+                "start_date",
+                "end_date",
+                "seat_number",
+                "seat_area"
+              ]
+            }
           }
         ],
         "responses": {
@@ -251,6 +415,168 @@
       "delete": {
         "tags": [
           "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/offers": {
+      "get": {
+        "tags": [
+          "Offers"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Offers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "event_id": {
+                  "type": "number",
+                  "example": 2
+                },
+                "price": {
+                  "type": "number",
+                  "example": 2000
+                },
+                "details": {
+                  "type": "string",
+                  "example": "The most popular festival in Eastern Europe and world"
+                },
+                "seller_uid": {
+                  "type": "number",
+                  "example": 2
+                }
+              },
+              "required": [
+                "event_id",
+                "price",
+                "details",
+                "seller_uid"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/offers/{id}": {
+      "get": {
+        "tags": [
+          "Offers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Offers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "event_id": {
+                  "type": "number",
+                  "example": 2
+                },
+                "price": {
+                  "type": "number",
+                  "example": 3000
+                },
+                "details": {
+                  "type": "string",
+                  "example": "The most popular festival in Eastern Europe and world"
+                },
+                "seller_uid": {
+                  "type": "number",
+                  "example": 2
+                }
+              },
+              "required": [
+                "event_id",
+                "price",
+                "details",
+                "seller_uid"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Offers"
         ],
         "description": "",
         "parameters": [

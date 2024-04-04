@@ -5,6 +5,14 @@ export const seedEventsTable = {
 ('Beer Fest', 'Beer Fest is festival in Serbia, Belgrade where Rock bands are singin and people are having fun', ARRAY['https://th.bing.com/th/id/OIP.I5Qc1Xr_jmnwU-tskn8vBgHaE8?rs=1&pid=ImgDetMain', 'https://th.bing.com/th/id/R.c74967e0797bc084163d671fdbdefb25?rik=2%2b662aaz%2f9WJIQ&pid=ImgRaw&r=0'], 'festival', 'Rock Bands', 'Serbia', 'Belgrade', '(44.7866, 20.4489)', '2024-07-15 18:00:00', '2024-07-15', '2024-07-17', 1500, 'VIP'),
 ('Theater night', 'Night of free shows in theaters in Belgrade, Serbia', ARRAY['https://th.bing.com/th/id/R.fb13d2981bc08ecafece8ca0fc0b8eaa?rik=lGWQBtutenHr8Q&pid=ImgRaw&r=0'], 'theater', 'Various Artists', 'Serbia', 'Belgrade', '(44.7866, 20.4489)', '2024-08-20 20:00:00', '2024-08-20', '2024-08-20', 500, 'Back') ON CONFLICT DO NOTHING;`,
 };
+export const seedOffersTable = {
+  name: "fill-offers-table",
+  text: `INSERT INTO offers (event_id, details, price, seller_uid) VALUES
+    (1, 'Front row tickets for the concert', 100, 1),
+    (2, 'VIP backstage pass for the festival', 200, 2),
+    (3, 'Exclusive dinner with the artist', 300, 3);
+  `,
+};
 
 export const seedUsersTable = {
   name: "fill-users-table",

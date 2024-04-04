@@ -50,7 +50,7 @@ export const createEventQuery = (body) => {
   };
 };
 
-export const updateEventQuery = (eventId, newData) => {
+export const updateEventQuery = (id, newData) => {
   return {
     name: "update-event",
     text: `UPDATE events SET title = $1, description = $2, images = $3, category = $4, artist = $5, state = $6, city = $7, location = $8, event_time = $9, start_date = $10, end_date = $11, seat_number = $12, seat_area = $13 WHERE id = $14`,
@@ -68,15 +68,15 @@ export const updateEventQuery = (eventId, newData) => {
       newData.end_date,
       newData.seat_number,
       newData.seat_area,
-      eventId,
+      id,
     ],
   };
 };
 
-export const deleteEventQuery = (eventId) => {
+export const deleteEventQuery = (id) => {
   return {
     name: "delete-event",
     text: "DELETE FROM events WHERE id = $1",
-    values: [eventId],
+    values: [id],
   };
 };
