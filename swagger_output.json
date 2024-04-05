@@ -596,6 +596,60 @@
           }
         }
       }
+    },
+    "/purchase": {
+      "post": {
+        "tags": [
+          "Email"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "example": "Ticket purchase"
+                },
+                "to": {
+                  "type": "string",
+                  "example": "ticket.flow.development@gmail.com"
+                },
+                "full_name": {
+                  "type": "string",
+                  "example": "Nikola Mirilo"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "You purchased ticket successfully"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Thank you for using our platform, we hope your experience was awesome!"
+                }
+              },
+              "required": [
+                "subject",
+                "to",
+                "full_name",
+                "title",
+                "description"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }

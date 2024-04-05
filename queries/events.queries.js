@@ -13,8 +13,8 @@ export const createEventsTableQuery = {
     event_time TIMESTAMP,
     start_date DATE,
     end_date DATE,
-    seat_number INTEGER,
-    seat_area VARCHAR(50));`,
+    seat_number INTEGER, 
+    seat_area VARCHAR(50));`, // move to offer seat numbr and seat area
 };
 export const fetchEventsQuery = {
   name: "fetch-events",

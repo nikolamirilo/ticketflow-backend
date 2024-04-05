@@ -2,15 +2,70 @@ export const createUsersTableQuery = {
   name: "create-table-users",
   text: `CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
-      full_name VARCHAR(255) NOT NULL,
-      email VARCHAR(255),
+      full_name VARCHAR(100) NOT NULL,
+      phone VARCHAR(100),
+      gender VARCHAR(100),
+      isVerified BOOLEAN,
+      personal_id VARCHAR(100),
+      sold_number INTEGER,
+      isReliableSeller BOOLEAN,
+      bio TEXT,
+      email VARCHAR(100),
       image VARCHAR(255),
       role VARCHAR(100)
   );`,
 };
+
 export const fetchUsersQuery = {
   name: "fetch-users",
-  text: `SELECT * FROM users`,
+  text: `SELECT 
+  u.full_name,
+  u.phone,
+  u.gender,
+  u.isVerified,
+  u.personal_id,
+  u.sold_number,
+  u.isReliableSeller,
+  u.bio,
+  u.email,
+  u.image,
+  u.role,
+  COALESCE(
+      JSON_AGG(
+          JSON_BUILD_OBJECT(
+              'id', o.id,
+              'details', o.details,
+              'price', o.price,
+              'event', JSON_BUILD_OBJECT(
+                  'id', e.id,
+                  'title', e.title,
+                  'description', e.description,
+                  'images', e.images,
+                  'category', e.category,
+                  'artist', e.artist,
+                  'state', e.state,
+                  'city', e.city,
+                  'location', e.location,
+                  'event_time', e.event_time,
+                  'start_date', e.start_date,
+                  'end_date', e.end_date,
+                  'seat_number', e.seat_number,
+                  'seat_area', e.seat_area
+              )
+          )
+      ) FILTER (WHERE o.id IS NOT NULL),
+      '[]'
+  ) AS offers
+FROM 
+  users u
+LEFT JOIN 
+  offers o ON o.seller_uid = u.id
+LEFT JOIN 
+  events e ON o.event_id = e.id
+GROUP BY 
+  u.full_name, u.phone, u.gender, u.isVerified, u.personal_id, u.sold_number, 
+  u.isReliableSeller, u.bio, u.email, u.image, u.role;
+`,
 };
 export const fetchSingleUserQuery = (id) => {
   return {

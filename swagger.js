@@ -14,6 +14,7 @@ const routes = [
   "./routes/events.routes.js",
   "./routes/users.routes.js",
   "./routes/offers.routes.js",
+  "./routes/purchase.routes.js",
 ];
 
 swaggerAutogen(outputFile, routes, doc);

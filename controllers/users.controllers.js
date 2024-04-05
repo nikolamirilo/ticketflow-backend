@@ -13,9 +13,9 @@ export async function getAllUsers(req, res) {
   // #swagger.tags = ['Users']
   try {
     await client.query(createUsersTableQuery);
-    const usersResult = await client.query(fetchUsersQuery);
-    if (usersResult.rows.length > 0) {
-      res.send(usersResult.rows);
+    const result = await client.query(fetchUsersQuery);
+    if (result.rows.length > 0) {
+      res.send(result.rows);
     } else {
       await client.query(seedUsersTable);
       const seededUsersResult = await client.query(fetchUsersQuery);
