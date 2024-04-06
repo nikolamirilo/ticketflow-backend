@@ -7,6 +7,7 @@ export const createEventsTableQuery = {
     location VARCHAR(100),
     link VARCHAR(255),
     date VARCHAR(100),
+    time VARCHAR(100),
     category VARCHAR(100));`,
 };
 
@@ -31,13 +32,14 @@ export const fetchSingleEventQuery = (id) => {
 export const createEventQuery = (event) => {
   return {
     name: "create-event",
-    text: `INSERT INTO events (title, image, location, link, date, category) VALUES ($1, $2, $3, $4, $5, $6)`,
+    text: `INSERT INTO events (title, image, location, link, date, time, category) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
     values: [
       event.title,
       event.image,
       event.location,
       event.link,
       event.date,
+      event.time,
       event.category,
     ],
   };
@@ -46,13 +48,14 @@ export const createEventQuery = (event) => {
 export const updateEventQuery = (id, newData) => {
   return {
     name: "update-event",
-    text: `UPDATE events SET title = $1, image = $2, location = $3, link = $4, date = $5, category = $6 WHERE id = $7`,
+    text: `UPDATE events SET title = $1, image = $2, location = $3, link = $4, date = $5, time = $6 category = $7 WHERE id = $8`,
     values: [
       newData.title,
       newData.image,
       newData.location,
       newData.link,
       newData.date,
+      newData.time,
       newData.category,
       id,
     ],

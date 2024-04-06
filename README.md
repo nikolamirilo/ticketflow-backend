@@ -16,6 +16,7 @@
 - `POSTGRES_PASSWORD`
 - `POSTGRES_DATABASE`
 - `PORT`
+- `APP_URL`
 
 ### Run Application:
 

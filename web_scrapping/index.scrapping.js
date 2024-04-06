@@ -25,13 +25,18 @@ export async function fetchEvents() {
         const link = `https://tickets.rs${el.attr("href")}`;
         const image = el.find("div.img-box > img").attr("src");
         const location = el.find("div.desc-box > div").text();
-        const date = el.find("div.date-box > div").text();
+        const dateString = el.find("div.date-box > div").text();
+
+        const date = dateString.slice(0, -6);
+        const time = dateString.slice(-6);
+
         const event = {
-          title,
+          title: title.trim(),
           image,
           location,
           link,
-          date,
+          date: date.trim(),
+          time: time.trim(),
           category: "concert",
         };
         events.add(JSON.stringify(event)); // Convert event to JSON string and add to Set

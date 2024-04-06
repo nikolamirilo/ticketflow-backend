@@ -1,8 +1,8 @@
 import express from "express";
-import { sendEmail } from "../controllers/purchase.controllers.js";
+import { purchaseOffer } from "../controllers/purchase.controllers.js";
 
 const purchaseRoutes = express.Router();
 
-purchaseRoutes.post("/purchase", sendEmail);
+purchaseRoutes.post("/purchase", purchaseOffer);
 
 export default purchaseRoutes;

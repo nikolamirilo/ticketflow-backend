@@ -5,52 +5,28 @@ export const createUsersTableQuery = {
       full_name VARCHAR(100) NOT NULL,
       phone VARCHAR(100),
       gender VARCHAR(100),
-      isVerified BOOLEAN,
+      is_verified BOOLEAN,
       personal_id VARCHAR(100),
-      sold_number INTEGER,
-      isReliableSeller BOOLEAN,
+      tickets_sold INTEGER,
+      is_reliable_seller BOOLEAN,
       bio TEXT,
       email VARCHAR(100),
-      image VARCHAR(255),
-      role VARCHAR(100)
+      image VARCHAR(255)
   );`,
 };
-
 export const fetchUsersQuery = {
   name: "fetch-users",
   text: `SELECT 
   u.full_name,
   u.phone,
   u.gender,
-  u.isVerified,
+  u.is_verified,
   u.personal_id,
-  u.sold_number,
-  u.isReliableSeller,
+  u.tickets_sold,
+  u.is_reliable_seller,
   u.bio,
   u.email,
-  u.image,
-  u.role,
-  COALESCE(
-      JSON_AGG(
-          JSON_BUILD_OBJECT(
-              'id', o.id,
-              'details', o.details,
-              'seat_number', o.seat_number,
-              'seat_area', o.seat_area,
-              'price', o.price,
-              'event', JSON_BUILD_OBJECT(
-                  'id', e.id,
-                  'title', e.title,
-                  'description', e.description,
-                  'image', e.images,
-                  'category', e.category,
-                  'location', e.location,
-                  'date', e.date,
-              )
-          )
-      ) FILTER (WHERE o.id IS NOT NULL),
-      '[]'
-  ) AS offers
+  u.image
 FROM 
   users u
 LEFT JOIN 
@@ -58,34 +34,54 @@ LEFT JOIN
 LEFT JOIN 
   events e ON o.event_id = e.id
 GROUP BY 
-  u.full_name, u.phone, u.gender, u.isVerified, u.personal_id, u.sold_number, 
-  u.isReliableSeller, u.bio, u.email, u.image, u.role;
+  u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, 
+  u.is_reliable_seller, u.bio, u.email, u.image;
 `,
 };
+
 export const fetchSingleUserQuery = (id) => {
   return {
-    name: "fetch-single-event",
+    name: "fetch-single-user",
     text: `SELECT * FROM users WHERE id=$1`,
     values: [id],
   };
 };
+
 export const createUserQuery = (body) => {
   return {
-    name: "create-event",
-    text: `INSERT INTO users (full_name, email, image, role) VALUES
-      ($1, $2, $3, $4)`, // Using parameterized query to prevent SQL injection
-    values: [body.full_name, body.email, body.image, body.role], // Passing values separately to prevent SQL injection
+    name: "create-user",
+    text: `INSERT INTO users (full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    values: [
+      body.full_name,
+      body.phone,
+      body.gender,
+      body.is_verified,
+      body.personal_id,
+      body.tickets_sold,
+      body.is_reliable_seller,
+      body.bio,
+      body.email,
+      body.image,
+    ],
   };
 };
+
 export const updateUserQuery = (uid, newData) => {
   return {
-    name: "update-event",
-    text: `UPDATE users SET full_name = $1, email = $2, image = $3, role = $4 WHERE id = $5`,
+    name: "update-user",
+    text: `UPDATE users SET full_name = $1, phone = $2, gender = $3, is_verified = $4, personal_id = $5, tickets_sold = $6, is_reliable_seller = $7, bio = $8, email = $9, image = $10 WHERE id = $11`,
     values: [
       newData.full_name,
+      newData.phone,
+      newData.gender,
+      newData.is_verified,
+      newData.personal_id,
+      newData.tickets_sold,
+      newData.is_reliable_seller,
+      newData.bio,
       newData.email,
       newData.image,
-      newData.role,
       uid,
     ],
   };
@@ -93,7 +89,7 @@ export const updateUserQuery = (uid, newData) => {
 
 export const deleteUserQuery = (uid) => {
   return {
-    name: "delete-event",
+    name: "delete-user",
     text: "DELETE FROM users WHERE id = $1",
     values: [uid],
   };

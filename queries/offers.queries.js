@@ -13,19 +13,19 @@ export const createOffersTableQuery = {
 export const fetchOffersQuery = {
   name: "fetch-offers",
   text: `SELECT
-          o.id,
-          o.details,
-          o.seat_number,
-          o.seat_area,
-          e.category,
-          o.price,
-          JSON_BUILD_OBJECT('event', e, 'user', u) AS additional_data
-        FROM
-          offers o
-        LEFT JOIN
-          users u ON o.seller_uid = u.id
-        LEFT JOIN
-          events e ON o.event_id = e.id;
+    o.id,
+    o.details,
+    o.seat_number,
+    o.seat_area,
+    e.category,
+    o.price,
+    JSON_BUILD_OBJECT('event', e, 'seller', u) AS additional_data
+  FROM
+    offers o
+  LEFT JOIN
+    users u ON o.seller_uid = u.id
+  LEFT JOIN
+    events e ON o.event_id = e.id;
 `,
 };
 

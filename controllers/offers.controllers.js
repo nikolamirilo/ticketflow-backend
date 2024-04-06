@@ -23,7 +23,7 @@ export async function getAllOffers(req, res) {
     }
   } catch (error) {
     console.error("Error fetching offers:", error);
-    res.status(500).send("Internal server error");
+    res.status(500).send({ message: "Internal server error" });
   }
 }
 

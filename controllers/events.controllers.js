@@ -25,7 +25,7 @@ export async function getAllEvents(req, res) {
     }
   } catch (error) {
     console.error("Error fetching events:", error);
-    res.status(500).send("Internal server error");
+    res.status(500).send({ message: "Internal server error" });
   }
 }
 

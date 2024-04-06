@@ -23,7 +23,7 @@ export async function getAllUsers(req, res) {
     }
   } catch (error) {
     console.error("Error fetching users:", error);
-    res.status(500).send("Internal server error");
+    res.status(500).send({ message: "Internal server error" });
   }
 }
 
@@ -45,7 +45,6 @@ export async function createUser(req, res) {
             in: 'body',
             schema: {
                 $full_name: 'John Smith',
-                $role: 'customer',
                 $email: 'john.smith@gmail.com',
                 $image: 'https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain'
 
@@ -67,7 +66,6 @@ export async function updateUser(req, res) {
             in: 'body',
             schema: {
                 $full_name: 'John Beam',
-                $role: 'customer',
                 $email: 'john.beam@gmail.com',
                 $image: 'https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain'
 

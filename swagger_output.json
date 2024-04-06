@@ -600,7 +600,7 @@
     "/purchase": {
       "post": {
         "tags": [
-          "Email"
+          "Purchase"
         ],
         "description": "",
         "parameters": [
