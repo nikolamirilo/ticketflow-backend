@@ -35,22 +35,17 @@ export const fetchUsersQuery = {
           JSON_BUILD_OBJECT(
               'id', o.id,
               'details', o.details,
+              'seat_number', o.seat_number,
+              'seat_area', o.seat_area,
               'price', o.price,
               'event', JSON_BUILD_OBJECT(
                   'id', e.id,
                   'title', e.title,
                   'description', e.description,
-                  'images', e.images,
+                  'image', e.images,
                   'category', e.category,
-                  'artist', e.artist,
-                  'state', e.state,
-                  'city', e.city,
                   'location', e.location,
-                  'event_time', e.event_time,
-                  'start_date', e.start_date,
-                  'end_date', e.end_date,
-                  'seat_number', e.seat_number,
-                  'seat_area', e.seat_area
+                  'date', e.date,
               )
           )
       ) FILTER (WHERE o.id IS NOT NULL),

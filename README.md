@@ -24,5 +24,4 @@
 
 ### Available Routes
 
-- You can find available routes if you hit: `${app_url}/swagger`
-- In development it is: `http://localhost:5000/swagger`
+- You can find available routes if you hit: `${APP_URL}/swagger`

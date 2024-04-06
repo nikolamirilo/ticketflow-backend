@@ -6,6 +6,9 @@ import swaggerFile from "./swagger_output.json" assert { type: "json" };
 import allRoutes from "./routes/index.routes.js";
 import { client } from "./lib/database.config.js";
 import dotenv from "dotenv";
+import { fetchEvents } from "./web_scrapping/index.scrapping.js";
+import { deleteEventsTableQuery } from "./queries/events.queries.js";
+import cron from "node-cron";
 
 dotenv.config();
 
@@ -23,12 +26,24 @@ const app = express();
   app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5000");
+    res.header("Access-Control-Allow-Origin", process.env.APP_URL);
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
     );
     next();
+  });
+
+  cron.schedule("0 8 * * *", async () => {
+    try {
+      console.log("Running fetchEvents cron job...");
+      client.query(deleteEventsTableQuery);
+      const events = await fetchEvents();
+      await seedEventsTable(events);
+      console.log("Seed Events Tabke cron job completed.");
+    } catch (error) {
+      console.error("Error running fetchEvents cron job:", error);
+    }
   });
 
   // For PRODUCTION

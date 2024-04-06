@@ -8,6 +8,7 @@ import {
   deleteEventQuery,
 } from "../queries/events.queries.js";
 import { seedEventsTable } from "../seed/index.seed.js";
+import { fetchEvents } from "../web_scrapping/index.scrapping.js";
 
 export async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']
@@ -17,7 +18,8 @@ export async function getAllEvents(req, res) {
     if (eventsResult.rows.length > 0) {
       res.send(eventsResult.rows);
     } else {
-      await client.query(seedEventsTable);
+      const events = await fetchEvents();
+      await seedEventsTable(events);
       const seededEventsResult = await client.query(fetchEventsQuery);
       res.send(seededEventsResult.rows);
     }
