@@ -302,24 +302,54 @@
               "properties": {
                 "full_name": {
                   "type": "string",
-                  "example": "John Smith"
+                  "example": "John Doe"
                 },
-                "role": {
+                "phone": {
                   "type": "string",
-                  "example": "customer"
+                  "example": "+1234567890"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Male"
+                },
+                "is_verified": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "personal_id": {
+                  "type": "string",
+                  "example": "1234567890"
+                },
+                "tickets_sold": {
+                  "type": "number",
+                  "example": 10
+                },
+                "is_reliable_seller": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "bio": {
+                  "type": "string",
+                  "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae libero nec odio vehicula semper eget sed nisi."
                 },
                 "email": {
                   "type": "string",
-                  "example": "john.smith@gmail.com"
+                  "example": "john.doe@gmail.com"
                 },
                 "image": {
                   "type": "string",
-                  "example": "https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain"
+                  "example": "https://g.foolcdn.com/editorial/images/454506/smiling-man-in-suit_gettyimages-509102308.jpg"
                 }
               },
               "required": [
                 "full_name",
-                "role",
+                "phone",
+                "gender",
+                "is_verified",
+                "personal_id",
+                "tickets_sold",
+                "is_reliable_seller",
+                "bio",
                 "email",
                 "image"
               ]
@@ -379,24 +409,54 @@
               "properties": {
                 "full_name": {
                   "type": "string",
-                  "example": "John Beam"
+                  "example": "John Doe 2"
                 },
-                "role": {
+                "phone": {
                   "type": "string",
-                  "example": "customer"
+                  "example": "+1234567890"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Male"
+                },
+                "is_verified": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "personal_id": {
+                  "type": "string",
+                  "example": "1234567890"
+                },
+                "tickets_sold": {
+                  "type": "number",
+                  "example": 10
+                },
+                "is_reliable_seller": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "bio": {
+                  "type": "string",
+                  "example": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae libero nec odio vehicula semper eget sed nisi."
                 },
                 "email": {
                   "type": "string",
-                  "example": "john.beam@gmail.com"
+                  "example": "john.doe@gmail.com"
                 },
                 "image": {
                   "type": "string",
-                  "example": "https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain"
+                  "example": "https://g.foolcdn.com/editorial/images/454506/smiling-man-in-suit_gettyimages-509102308.jpg"
                 }
               },
               "required": [
                 "full_name",
-                "role",
+                "phone",
+                "gender",
+                "is_verified",
+                "personal_id",
+                "tickets_sold",
+                "is_reliable_seller",
+                "bio",
                 "email",
                 "image"
               ]
@@ -474,6 +534,14 @@
                   "type": "string",
                   "example": "The most popular festival in Eastern Europe and world"
                 },
+                "seat_number": {
+                  "type": "string",
+                  "example": "G12"
+                },
+                "seat_area": {
+                  "type": "string",
+                  "example": "South"
+                },
                 "seller_uid": {
                   "type": "number",
                   "example": 2
@@ -483,6 +551,8 @@
                 "event_id",
                 "price",
                 "details",
+                "seat_number",
+                "seat_area",
                 "seller_uid"
               ]
             }
@@ -551,6 +621,14 @@
                   "type": "string",
                   "example": "The most popular festival in Eastern Europe and world"
                 },
+                "seat_number": {
+                  "type": "string",
+                  "example": "G12"
+                },
+                "seat_area": {
+                  "type": "string",
+                  "example": "South"
+                },
                 "seller_uid": {
                   "type": "number",
                   "example": 2
@@ -560,6 +638,8 @@
                 "event_id",
                 "price",
                 "details",
+                "seat_number",
+                "seat_area",
                 "seller_uid"
               ]
             }

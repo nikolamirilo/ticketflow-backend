@@ -47,6 +47,8 @@ export async function createOffer(req, res) {
                 $event_id: 2,
                 $price: 2000,
                 $details: 'The most popular festival in Eastern Europe and world',
+                $seat_number:"G12",
+                $seat_area: "South",
                 $seller_uid: 2,
             }
     } */
@@ -68,6 +70,8 @@ export async function updateOffer(req, res) {
                 $event_id: 2,
                 $price: 3000,
                 $details: 'The most popular festival in Eastern Europe and world',
+                $seat_number:"G12",
+                $seat_area: "South",
                 $seller_uid: 2,
             }
     } */

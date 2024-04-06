@@ -44,10 +44,16 @@ export async function createUser(req, res) {
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-                $full_name: 'John Smith',
-                $email: 'john.smith@gmail.com',
-                $image: 'https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain'
-
+                $full_name: "John Doe",
+                $phone: "+1234567890",
+                $gender: "Male",
+                $is_verified: true,
+                $personal_id: "1234567890",
+                $tickets_sold: 10,
+                $is_reliable_seller: true,
+                $bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae libero nec odio vehicula semper eget sed nisi.",
+                $email: "john.doe@gmail.com",
+                $image: "https://g.foolcdn.com/editorial/images/454506/smiling-man-in-suit_gettyimages-509102308.jpg"
             }
     } */
   const query = createUserQuery(req.body);
@@ -65,10 +71,16 @@ export async function updateUser(req, res) {
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-                $full_name: 'John Beam',
-                $email: 'john.beam@gmail.com',
-                $image: 'https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain'
-
+                $full_name: "John Doe 2",
+                $phone: "+1234567890",
+                $gender: "Male",
+                $is_verified: true,
+                $personal_id: "1234567890",
+                $tickets_sold: 10,
+                $is_reliable_seller: true,
+                $bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae libero nec odio vehicula semper eget sed nisi.",
+                $email: "john.doe@gmail.com",
+                $image: "https://g.foolcdn.com/editorial/images/454506/smiling-man-in-suit_gettyimages-509102308.jpg"
             }
     } */
   const query = updateUserQuery(req.params.id, req.body);
