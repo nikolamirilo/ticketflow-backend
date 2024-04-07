@@ -1,6 +1,8 @@
 import { client } from "../lib/database.config.js";
+import { createEventsTableQuery } from "../queries/events.queries.js";
 
 export async function seedEventsTable(events) {
+  await client.query(createEventsTableQuery);
   try {
     for (const event of events) {
       // Execute the seed query to insert event into the database

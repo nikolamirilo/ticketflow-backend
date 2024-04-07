@@ -6,14 +6,15 @@ import {
   createEventQuery,
   updateEventQuery,
   deleteEventQuery,
+  searchEventsQuery,
 } from "../queries/events.queries.js";
 import { seedEventsTable } from "../seed/index.seed.js";
 import { fetchEvents } from "../web_scrapping/index.scrapping.js";
 
 export async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']
+  await client.query(createEventsTableQuery);
   try {
-    await client.query(createEventsTableQuery);
     const eventsResult = await client.query(fetchEventsQuery);
     if (eventsResult.rows.length > 0) {
       res.send(eventsResult.rows);
@@ -37,6 +38,17 @@ export async function getSingleEvent(req, res) {
     res.send(result.rows[0]);
   } catch (error) {
     console.error("Error fetching single event:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+export async function searchEvents(req, res) {
+  // #swagger.tags = ['Events']
+  const query = searchEventsQuery(req.params.title);
+  try {
+    const result = await client.query(query);
+    res.send(result.rows);
+  } catch (error) {
+    console.error("Error searching for events:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

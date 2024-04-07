@@ -28,6 +28,13 @@ export const fetchSingleEventQuery = (id) => {
     values: [id],
   };
 };
+export const searchEventsQuery = (title) => {
+  return {
+    name: "search-events",
+    text: `SELECT * FROM events WHERE title ILIKE '%' || $1 || '%'`,
+    values: [title],
+  };
+};
 
 export const createEventQuery = (event) => {
   return {

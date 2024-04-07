@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import { fetchEvents } from "./web_scrapping/index.scrapping.js";
 import { deleteEventsTableQuery } from "./queries/events.queries.js";
 import cron from "node-cron";
+import { seedEventsTable } from "./seed/index.seed.js";
 
 dotenv.config();
 
@@ -34,13 +35,13 @@ const app = express();
     next();
   });
 
-  cron.schedule("0 8 * * *", async () => {
+  cron.schedule("0 4 * * *", async () => {
     try {
-      console.log("Running fetchEvents cron job...");
-      client.query(deleteEventsTableQuery);
+      // Cron job which will get fresh data for events. It will run every day at 4am.
+      await client.query(deleteEventsTableQuery);
       const events = await fetchEvents();
       await seedEventsTable(events);
-      console.log("Seed Events Tabke cron job completed.");
+      console.log("Seed Events cron job completed.");
     } catch (error) {
       console.error("Error running fetchEvents cron job:", error);
     }
