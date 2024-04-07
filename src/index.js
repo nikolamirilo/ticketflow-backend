@@ -60,10 +60,9 @@ const app = express();
   //   next();
   // });
 
-  // app.listen(process.env.PORT, () => {
-  //   console.log(`Server listening on port ${process.env.PORT}`);
-  // });
-  app.use(express.static("public"));
+  app.listen(process.env.PORT, () => {
+    console.log(`Server listening on port ${process.env.PORT}`);
+  });
   // // End client
   // await client.end();
 })();
