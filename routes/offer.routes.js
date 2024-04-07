@@ -5,7 +5,7 @@ import {
   updateOffer,
   getSingleOffer,
   createOffer,
-} from "../controllers/offers.controllers.js";
+} from "../controllers/offer.controllers.js";
 
 const offerRoutes = express.Router();
 

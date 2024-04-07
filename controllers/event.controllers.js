@@ -7,7 +7,8 @@ import {
   updateEventQuery,
   deleteEventQuery,
   searchEventsQuery,
-} from "../queries/events.queries.js";
+  fetchCategoryEventsQuery,
+} from "../queries/event.queries.js";
 import { seedEventsTable } from "../seed/index.seed.js";
 import { fetchEvents } from "../web_scrapping/index.scrapping.js";
 
@@ -24,6 +25,17 @@ export async function getAllEvents(req, res) {
       const seededEventsResult = await client.query(fetchEventsQuery);
       res.send(seededEventsResult.rows);
     }
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+}
+export async function getCategoryEvents(req, res) {
+  // #swagger.tags = ['Events']
+  const query = fetchCategoryEventsQuery(req.params.category);
+  try {
+    const eventsResult = await client.query(query);
+    res.send(eventsResult.rows);
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send({ message: "Internal server error" });

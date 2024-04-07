@@ -6,7 +6,7 @@ import {
   createOfferQuery,
   updateOfferQuery,
   deleteOfferQuery,
-} from "../queries/offers.queries.js";
+} from "../queries/offer.queries.js";
 import { seedOffersTable } from "../seed/index.seed.js";
 
 export async function getAllOffers(req, res) {

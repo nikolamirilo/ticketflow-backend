@@ -1,11 +1,11 @@
 import { sendEmail } from "../helpers/index.helpers.js";
 
-export async function purchaseOffer(req, res) {
-  // #swagger.tags = ['Purchase']
+export async function createOrder(req, res) {
+  // #swagger.tags = ['Order']
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-                $subject: 'Ticket purchase',
+                $subject: 'Ticket order',
                 $to: "ticket.flow.development@gmail.com",
                 $full_name: 'Nikola Mirilo',
                 $title: 'You purchased ticket successfully',

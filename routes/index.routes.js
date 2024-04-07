@@ -1,8 +1,8 @@
-import userRoutes from "./users.routes.js";
-import eventRoutes from "./events.routes.js";
-import offerRoutes from "./offers.routes.js";
-import purchaseRoutes from "./purchase.routes.js";
+import userRoutes from "./user.routes.js";
+import eventRoutes from "./event.routes.js";
+import offerRoutes from "./offer.routes.js";
+import orderRoutes from "./order.routes.js";
 
-const allRoutes = [eventRoutes, userRoutes, offerRoutes, purchaseRoutes];
+const allRoutes = [eventRoutes, userRoutes, offerRoutes, orderRoutes];
 
 export default allRoutes;

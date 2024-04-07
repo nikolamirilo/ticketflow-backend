@@ -1,5 +1,5 @@
 import { client } from "../lib/database.config.js";
-import { createEventsTableQuery } from "../queries/events.queries.js";
+import { createEventsTableQuery } from "../queries/event.queries.js";
 
 export async function seedEventsTable(events) {
   await client.query(createEventsTableQuery);
