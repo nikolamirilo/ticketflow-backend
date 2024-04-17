@@ -47,19 +47,6 @@ const app = express();
     }
   });
 
-  // For PRODUCTION
-  // app.use((req, res, next) => {
-  //   res.header(
-  //     "Access-Control-Allow-Origin",
-  //     "https://citrix-availability.up.railway.app"
-  //   );
-  //   res.header(
-  //     "Access-Control-Allow-Headers",
-  //     "Origin, X-Requested-With, Content-Type, Accept"
-  //   );
-  //   next();
-  // });
-
   app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
   });
