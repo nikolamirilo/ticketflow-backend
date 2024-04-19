@@ -8,7 +8,7 @@
     "start": "node index.js",
     "dev": "node swagger.js && nodemon index.js",
     "swagger": "node swagger.js",
-    "build": "npm i && node swagger.js"
+    "build": "npm install && node swagger.js"
   },
   "keywords": [],
   "author": "",
