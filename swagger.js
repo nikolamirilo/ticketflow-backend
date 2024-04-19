@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const protocol = process.env.APP_URL == "localhost:5000" ? "http" : "https";
+
 const doc = {
   info: {
     title: "Ticket Flow",
@@ -10,7 +12,7 @@ const doc = {
       "Backend for Ticket Flow Application. Below you can find all API endpoints which are served on this server.",
   },
   host: process.env.APP_URL,
-  schemes: ["http", "https"],
+  schemes: [protocol],
 };
 
 const outputFile = "./swagger_config.json";
