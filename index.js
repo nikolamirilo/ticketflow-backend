@@ -2,14 +2,14 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import swaggerUi from "swagger-ui-express";
-import swaggerFile from "./swagger_output.json" assert { type: "json" };
-import allRoutes from "./src/routes/index.routes.js";
-import { client } from "./src/lib/database.config.js";
+import swaggerFile from "./swagger_config.json" assert { type: "json" };
+import allRoutes from "./routes/index.routes.js";
+import { client } from "./lib/database.config.js";
 import dotenv from "dotenv";
-import { fetchEvents } from "./src/web_scrapping/index.scrapping.js";
-import { deleteEventsTableQuery } from "./src/queries/event.queries.js";
+import { fetchEvents } from "./web_scrapping/index.scrapping.js";
+import { deleteEventsTableQuery } from "./queries/event.queries.js";
 import cron from "node-cron";
-import { seedEventsTable } from "./src/seed/index.seed.js";
+import { seedEventsTable } from "./seed/index.seed.js";
 
 dotenv.config();
 
@@ -19,11 +19,11 @@ const app = express();
   await client.connect();
 
   app.use(bodyParser.json());
-  app.use(cors()); // Enable CORS for all routes
+  app.use(cors());
 
-  // CORS middleware
+  // Setting headers
   app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", process.env.APP_URL);
+    res.header("Access-Control-Allow-Origin", "*");
     res.header(
       "Access-Control-Allow-Methods",
       "POST, PUT, PATCH, GET, DELETE, OPTIONS"
@@ -39,6 +39,7 @@ const app = express();
 
   app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+  // Setting up cron jobs
   cron.schedule("0 4 * * *", async () => {
     try {
       await client.query(deleteEventsTableQuery);

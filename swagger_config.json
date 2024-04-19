@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Tickt Flow",
+    "title": "Ticket Flow",
     "description": "Backend for Ticket Flow Application. Below you can find all API endpoints which are served on this server.",
     "version": "1.0.0"
   },
