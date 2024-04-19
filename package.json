@@ -8,10 +8,10 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node src/swagger.js && node src/index.js",
-    "dev": "node src/swagger.js && nodemon src/index.js",
-    "swagger": "node src/swagger.js",
-    "build": "npm i && node src/swagger.js"
+    "start": "node swagger.js && node index.js",
+    "dev": "node swagger.js && nodemon index.js",
+    "swagger": "node swagger.js",
+    "build": "npm i && node swagger.js"
   },
   "keywords": [],
   "author": "",
