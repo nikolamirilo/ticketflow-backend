@@ -10,6 +10,7 @@ const doc = {
       "Backend for Ticket Flow Application. Below you can find all API endpoints which are served on this server.",
   },
   host: process.env.APP_URL,
+  schemes: ["http", "https"],
 };
 
 const outputFile = "./swagger_config.json";
