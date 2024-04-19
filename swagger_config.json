@@ -5,10 +5,10 @@
     "description": "Backend for Ticket Flow Application. Below you can find all API endpoints which are served on this server.",
     "version": "1.0.0"
   },
-  "host": "localhost:500",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/events": {
@@ -317,6 +317,19 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/refresh-data": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

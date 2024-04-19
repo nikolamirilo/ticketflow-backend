@@ -19,7 +19,10 @@ export async function fetchTheaters() {
         const el = $(element);
         const title = el.find("div.desc-box > h5").text();
         // Skip theater if title contains "VIP"
-        if (title.toLowerCase().includes("vip")) {
+        if (
+          title.toLowerCase().includes("vip") ||
+          title.toLowerCase().includes("godišnja ulaznica")
+        ) {
           return; // Skip current iteration of the loop
         }
         const link = `https://tickets.rs${el.attr("href")}`;

@@ -8,6 +8,7 @@ import {
   deleteEventQuery,
   searchEventsQuery,
   fetchCategoryEventsQuery,
+  deleteEventsTableQuery,
 } from "../queries/event.queries.js";
 import { seedEventsTable } from "../seed/index.seed.js";
 import { fetchEvents } from "../web_scrapping/index.scrapping.js";
@@ -134,5 +135,16 @@ export async function deleteEvent(req, res) {
   } catch (error) {
     console.error("Error deleting event:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+}
+export async function refreshEventData(req, res) {
+  // #swagger.tags = ['Events']
+  try {
+    await client.query(deleteEventsTableQuery);
+    const events = await fetchEvents();
+    await seedEventsTable(events);
+    res.send({ message: "Seed Events cron job completed." });
+  } catch (error) {
+    res.send({ error });
   }
 }

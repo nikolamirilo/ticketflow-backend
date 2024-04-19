@@ -40,16 +40,16 @@ const app = express();
   app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   // Setting up cron jobs
-  cron.schedule("0 4 * * *", async () => {
-    try {
-      await client.query(deleteEventsTableQuery);
-      const events = await fetchEvents();
-      await seedEventsTable(events);
-      console.log("Seed Events cron job completed.");
-    } catch (error) {
-      console.error("Error running fetchEvents cron job:", error);
-    }
-  });
+  // cron.schedule("0 4 * * *", async () => {
+  //   try {
+  //     await client.query(deleteEventsTableQuery);
+  //     const events = await fetchEvents();
+  //     await seedEventsTable(events);
+  //     console.log("Seed Events cron job completed.");
+  //   } catch (error) {
+  //     console.error("Error running fetchEvents cron job:", error);
+  //   }
+  // });
 
   app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
