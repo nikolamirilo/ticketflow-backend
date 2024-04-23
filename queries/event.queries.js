@@ -22,7 +22,7 @@ export const fetchEventsQuery = {
 };
 export function fetchCategoryEventsQuery(category) {
   return {
-    name: "fetch-events",
+    name: "fetch-category-events",
     text: `SELECT * FROM events WHERE category ILIKE '%' || $1 || '%'`,
     values: [category],
   };
