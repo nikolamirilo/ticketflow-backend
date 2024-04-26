@@ -606,6 +606,14 @@
                 "seller_uid": {
                   "type": "number",
                   "example": 2
+                },
+                "status": {
+                  "type": "string",
+                  "example": "open"
+                },
+                "customer_uid": {
+                  "type": "number",
+                  "example": 1
                 }
               },
               "required": [
@@ -614,7 +622,9 @@
                 "details",
                 "seat_number",
                 "seat_area",
-                "seller_uid"
+                "seller_uid",
+                "status",
+                "customer_uid"
               ]
             }
           }
@@ -693,6 +703,14 @@
                 "seller_uid": {
                   "type": "number",
                   "example": 2
+                },
+                "status": {
+                  "type": "string",
+                  "example": "open"
+                },
+                "customer_uid": {
+                  "type": "number",
+                  "example": 1
                 }
               },
               "required": [
@@ -701,7 +719,9 @@
                 "details",
                 "seat_number",
                 "seat_area",
-                "seller_uid"
+                "seller_uid",
+                "status",
+                "customer_uid"
               ]
             }
           }

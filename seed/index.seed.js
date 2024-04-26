@@ -27,10 +27,10 @@ export async function seedEventsTable(events) {
 }
 export const seedOffersTable = {
   name: "seed-offers-table",
-  text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid) VALUES
-    (1, 'Front row tickets for the concert', 'A12', 'South', 100, 1),
-    (2, 'VIP backstage pass for the festival', 'C2', 'North', 200, 2),
-    (3, 'Exclusive dinner with the artist', 'B10', 'West', 300, 3);
+  text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid) VALUES
+    (1, 'Front row tickets for the concert', 'A12', 'South', 100, 1, 'open', null),
+    (2, 'VIP backstage pass for the festival', 'C2', 'North', 200, 2, 'open', null),
+    (3, 'Exclusive dinner with the artist', 'B10', 'West', 300, 3, 'open', null);
   `,
 };
 

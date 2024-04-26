@@ -50,6 +50,8 @@ export async function createOffer(req, res) {
                 $seat_number:"G12",
                 $seat_area: "South",
                 $seller_uid: 2,
+                $status: "open",
+                $customer_uid: 1
             }
     } */
   const query = createOfferQuery(req.body);
@@ -73,6 +75,8 @@ export async function updateOffer(req, res) {
                 $seat_number:"G12",
                 $seat_area: "South",
                 $seller_uid: 2,
+                $status: "open",
+                $customer_uid: 1
             }
     } */
   const query = updateOfferQuery(req.params.id, req.body);

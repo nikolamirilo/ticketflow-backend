@@ -6,10 +6,6 @@ import swaggerFile from "./swagger_config.json" assert { type: "json" };
 import allRoutes from "./routes/index.routes.js";
 import { client } from "./lib/database.config.js";
 import dotenv from "dotenv";
-import { fetchEvents } from "./web_scrapping/index.scrapping.js";
-import { deleteEventsTableQuery } from "./queries/event.queries.js";
-import cron from "node-cron";
-import { seedEventsTable } from "./seed/index.seed.js";
 
 dotenv.config();
 
