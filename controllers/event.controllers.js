@@ -6,9 +6,9 @@ import {
   createEventQuery,
   updateEventQuery,
   deleteEventQuery,
-  searchEventsQuery,
   fetchCategoryEventsQuery,
   deleteEventsTableQuery,
+  fetchFilterEventsQuery,
 } from "../queries/event.queries.js";
 import { seedEventsTable } from "../seed/index.seed.js";
 import { fetchEvents } from "../web_scrapping/index.scrapping.js";
@@ -42,6 +42,26 @@ export async function getCategoryEvents(req, res) {
     res.status(500).send({ message: "Internal server error" });
   }
 }
+export async function getFilterEvents(req, res) {
+  // #swagger.tags = ['Events']
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                $title: 'par',
+                $category: 'concert',
+                $location: 'banovina',
+                $date: '2024',
+            }
+    } */
+  const query = fetchFilterEventsQuery(req.body);
+  try {
+    const eventsResult = await client.query(query);
+    res.send(eventsResult.rows);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+}
 
 export async function getSingleEvent(req, res) {
   // #swagger.tags = ['Events']
@@ -54,36 +74,19 @@ export async function getSingleEvent(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-export async function searchEvents(req, res) {
-  // #swagger.tags = ['Events']
-  const query = searchEventsQuery(req.params.title);
-  try {
-    const result = await client.query(query);
-    res.send(result.rows);
-  } catch (error) {
-    console.error("Error searching for events:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-}
 
 export async function createEvent(req, res) {
   // #swagger.tags = ['Events']
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-                $title: 'Exit festival',
-                $category: 'festival',
-                $description: 'The most popular festival in Eastern Europe',
-                $images: ['https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0'],
-                $artist: 'Various Artists',
-                $state: 'Serbia',
-                $city: 'Novi Sad',
-                $location: '(45.2671, 19.8335)',
-                $event_time: '2024-07-06 20:00:00',
-                $start_date: '2024-07-06',
-                $end_date: '2024-07-10',
-                $seat_number: 2000,
-                $seat_area: 'General Admission'
+            $title: "Anime simfonija",
+            $image: "https://assets.tickets.rs/123abc321/0/Images/a89db5f9-19dc-4a82-a684-3df4d51e2e8d___192x108.jpeg",
+            $location: "mts dvorana",
+            $link: "https://tickets.rs/event/anime_simfonija_9967",
+            $date: "26. april 2024.",
+            $time: "20:00",
+            $category: "concert"
             }
     } */
   const query = createEventQuery(req.body);
@@ -101,19 +104,13 @@ export async function updateEvent(req, res) {
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-                $title: 'Exit festival 2024',
-                $category: 'festival',
-                $description: 'The most popular festival in Eastern Europe and world',
-                $images: ['https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0'],
-                $artist: 'Various Artists',
-                $state: 'Serbia',
-                $city: 'Novi Sad',
-                $location: '(45.2671, 19.8335)',
-                $event_time: '2024-07-06 20:00:00',
-                $start_date: '2024-07-06',
-                $end_date: '2024-07-10',
-                $seat_number: 2000,
-                $seat_area: 'General Admission'
+            $title: "Anime simfonija",
+            $image: "https://assets.tickets.rs/123abc321/0/Images/a89db5f9-19dc-4a82-a684-3df4d51e2e8d___192x108.jpeg",
+            $location: "mts dvorana",
+            $link: "https://tickets.rs/event/anime_simfonija_9967",
+            $date: "26. april 2024.",
+            $time: "20:00",
+            $category: "concert"
             }
     } */
   const query = updateEventQuery(req.params.id, req.body);

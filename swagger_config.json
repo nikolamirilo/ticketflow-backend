@@ -40,76 +40,41 @@
               "properties": {
                 "title": {
                   "type": "string",
-                  "example": "Exit festival"
+                  "example": "Anime simfonija"
                 },
-                "category": {
+                "image": {
                   "type": "string",
-                  "example": "festival"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "The most popular festival in Eastern Europe"
-                },
-                "images": {
-                  "type": "array",
-                  "example": [
-                    "https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "artist": {
-                  "type": "string",
-                  "example": "Various Artists"
-                },
-                "state": {
-                  "type": "string",
-                  "example": "Serbia"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "Novi Sad"
+                  "example": "https://assets.tickets.rs/123abc321/0/Images/a89db5f9-19dc-4a82-a684-3df4d51e2e8d___192x108.jpeg"
                 },
                 "location": {
                   "type": "string",
-                  "example": "(45.2671, 19.8335)"
+                  "example": "mts dvorana"
                 },
-                "event_time": {
+                "link": {
                   "type": "string",
-                  "example": "2024-07-06 20:00:00"
+                  "example": "https://tickets.rs/event/anime_simfonija_9967"
                 },
-                "start_date": {
+                "date": {
                   "type": "string",
-                  "example": "2024-07-06"
+                  "example": "26. april 2024."
                 },
-                "end_date": {
+                "time": {
                   "type": "string",
-                  "example": "2024-07-10"
+                  "example": "20:00"
                 },
-                "seat_number": {
-                  "type": "number",
-                  "example": 2000
-                },
-                "seat_area": {
+                "category": {
                   "type": "string",
-                  "example": "General Admission"
+                  "example": "concert"
                 }
               },
               "required": [
                 "title",
-                "category",
-                "description",
-                "images",
-                "artist",
-                "state",
-                "city",
+                "image",
                 "location",
-                "event_time",
-                "start_date",
-                "end_date",
-                "seat_number",
-                "seat_area"
+                "link",
+                "date",
+                "time",
+                "category"
               ]
             }
           }
@@ -191,76 +156,41 @@
               "properties": {
                 "title": {
                   "type": "string",
-                  "example": "Exit festival 2024"
+                  "example": "Anime simfonija"
                 },
-                "category": {
+                "image": {
                   "type": "string",
-                  "example": "festival"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "The most popular festival in Eastern Europe and world"
-                },
-                "images": {
-                  "type": "array",
-                  "example": [
-                    "https://th.bing.com/th/id/R.60806716e8df10005535a459c82f37fe?rik=R2sNermhBkDNYA&pid=ImgRaw&r=0"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "artist": {
-                  "type": "string",
-                  "example": "Various Artists"
-                },
-                "state": {
-                  "type": "string",
-                  "example": "Serbia"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "Novi Sad"
+                  "example": "https://assets.tickets.rs/123abc321/0/Images/a89db5f9-19dc-4a82-a684-3df4d51e2e8d___192x108.jpeg"
                 },
                 "location": {
                   "type": "string",
-                  "example": "(45.2671, 19.8335)"
+                  "example": "mts dvorana"
                 },
-                "event_time": {
+                "link": {
                   "type": "string",
-                  "example": "2024-07-06 20:00:00"
+                  "example": "https://tickets.rs/event/anime_simfonija_9967"
                 },
-                "start_date": {
+                "date": {
                   "type": "string",
-                  "example": "2024-07-06"
+                  "example": "26. april 2024."
                 },
-                "end_date": {
+                "time": {
                   "type": "string",
-                  "example": "2024-07-10"
+                  "example": "20:00"
                 },
-                "seat_number": {
-                  "type": "number",
-                  "example": 2000
-                },
-                "seat_area": {
+                "category": {
                   "type": "string",
-                  "example": "General Admission"
+                  "example": "concert"
                 }
               },
               "required": [
                 "title",
-                "category",
-                "description",
-                "images",
-                "artist",
-                "state",
-                "city",
+                "image",
                 "location",
-                "event_time",
-                "start_date",
-                "end_date",
-                "seat_number",
-                "seat_area"
+                "link",
+                "date",
+                "time",
+                "category"
               ]
             }
           }
@@ -297,30 +227,6 @@
         }
       }
     },
-    "/events/search/{title}": {
-      "get": {
-        "tags": [
-          "Events"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "title",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/refresh-data": {
       "get": {
         "tags": [
@@ -330,6 +236,55 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/events/search": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "par"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "concert"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "banovina"
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2024"
+                }
+              },
+              "required": [
+                "title",
+                "category",
+                "location",
+                "date"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

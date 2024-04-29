@@ -27,19 +27,24 @@ export function fetchCategoryEventsQuery(category) {
     values: [category],
   };
 }
+export function fetchFilterEventsQuery(filter) {
+  return {
+    name: "fetch-filter-events",
+    text: `SELECT * FROM events WHERE
+    title ILIKE '%' || $1 || '%' 
+    AND location ILIKE '%' || $2 || '%' 
+    AND date ILIKE '%' || $3 || '%' 
+    AND category ILIKE '%' || $4 || '%'
+   `,
+    values: [filter.title, filter.location, filter.date, filter.category],
+  };
+}
 
 export const fetchSingleEventQuery = (id) => {
   return {
     name: "fetch-single-event",
     text: `SELECT * FROM events WHERE id=$1`,
     values: [id],
-  };
-};
-export const searchEventsQuery = (title) => {
-  return {
-    name: "search-events",
-    text: `SELECT * FROM events WHERE title ILIKE '%' || $1 || '%'`,
-    values: [title],
   };
 };
 
