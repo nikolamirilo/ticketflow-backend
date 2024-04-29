@@ -787,9 +787,21 @@
                   "type": "string",
                   "example": "You purchased ticket successfully"
                 },
-                "description": {
+                "event_title": {
                   "type": "string",
-                  "example": "Thank you for using our platform, we hope your experience was awesome!"
+                  "example": "Ed Sheeran Concert"
+                },
+                "seller_full_name": {
+                  "type": "string",
+                  "example": "Pera Peric"
+                },
+                "seller_email": {
+                  "type": "string",
+                  "example": "peraperic@gmail.com"
+                },
+                "total": {
+                  "type": "number",
+                  "example": 2500
                 }
               },
               "required": [
@@ -797,7 +809,10 @@
                 "to",
                 "full_name",
                 "title",
-                "description"
+                "event_title",
+                "seller_full_name",
+                "seller_email",
+                "total"
               ]
             }
           }

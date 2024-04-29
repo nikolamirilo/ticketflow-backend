@@ -9,12 +9,33 @@ export async function createOrder(req, res) {
                 $to: "ticket.flow.development@gmail.com",
                 $full_name: 'Nikola Mirilo',
                 $title: 'You purchased ticket successfully',
-                $description: 'Thank you for using our platform, we hope your experience was awesome!'
+                $event_title: 'Ed Sheeran Concert',
+                $seller_full_name: 'Pera Peric',
+                $seller_email: 'peraperic@gmail.com',
+                $total: 2500
             }
     } */
-  const { subject, to, title, description, full_name } = req.body;
+  const {
+    subject,
+    to,
+    full_name,
+    title,
+    event_title,
+    seller_full_name,
+    seller_email,
+    total,
+  } = req.body;
   try {
-    const result = await sendEmail(subject, to, title, description, full_name);
+    const result = await sendEmail(
+      subject,
+      to,
+      full_name,
+      title,
+      event_title,
+      seller_full_name,
+      seller_email,
+      total
+    );
     res.send({ message: `Email sent successfully. Email id: ${result.id}` });
   } catch (err) {
     console.error("Error sending email:", err);
