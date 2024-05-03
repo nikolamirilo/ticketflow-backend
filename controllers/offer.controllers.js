@@ -6,6 +6,7 @@ import {
   createOfferQuery,
   updateOfferQuery,
   deleteOfferQuery,
+  fetchEventOffersQuery,
 } from "../queries/offer.queries.js";
 import { seedOffersTable } from "../seed/index.seed.js";
 
@@ -35,6 +36,17 @@ export async function getSingleOffer(req, res) {
     res.send(result.rows[0]);
   } catch (error) {
     console.error("Error fetching single offer:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+export async function getEventsOffer(req, res) {
+  // #swagger.tags = ['Offers']
+  const query = fetchEventOffersQuery(req.params.id);
+  try {
+    const result = await client.query(query);
+    res.send(result.rows);
+  } catch (error) {
+    console.error("Error fetching event offers:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

@@ -50,9 +50,33 @@ export const fetchSingleOfferQuery = (id) => {
     LEFT JOIN
       users c ON o.customer_uid = c.id
     LEFT JOIN
-      events e ON o.event_id = e.id;
+      events e ON o.event_id = e.id
     WHERE 
       o.id=$1;`,
+    values: [id],
+  };
+};
+export const fetchEventOffersQuery = (id) => {
+  return {
+    name: "fetch-event-offers",
+    text: `SELECT
+      o.id,
+      o.details,
+      o.seat_number,
+      o.seat_area,
+      o.price,
+      o.status,
+      JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
+    FROM
+      offers o
+    LEFT JOIN
+      users s ON o.seller_uid = s.id
+    LEFT JOIN
+      users c ON o.customer_uid = c.id
+    LEFT JOIN
+      events e ON o.event_id = e.id
+    WHERE 
+      o.event_id = $1;`,
     values: [id],
   };
 };
