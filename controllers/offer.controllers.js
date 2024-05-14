@@ -63,7 +63,8 @@ export async function createOffer(req, res) {
                 $seat_area: "South",
                 $seller_uid: 2,
                 $status: "open",
-                $customer_uid: 1
+                $customer_uid: 1,
+                $quantity: 1
             }
     } */
   const query = createOfferQuery(req.body);
@@ -88,7 +89,8 @@ export async function updateOffer(req, res) {
                 $seat_area: "South",
                 $seller_uid: 2,
                 $status: "open",
-                $customer_uid: 1
+                $customer_uid: 1,
+                $quantity: 2
             }
     } */
   const query = updateOfferQuery(req.params.id, req.body);

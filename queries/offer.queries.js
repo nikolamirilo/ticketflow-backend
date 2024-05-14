@@ -2,14 +2,15 @@ export const createOffersTableQuery = {
   name: "create-offers-table",
   text: `CREATE TABLE IF NOT EXISTS offers (
       id SERIAL PRIMARY KEY,
-      "event_id" INTEGER NOT NULL,
-      "details" TEXT,
-      "price" INTEGER,
-      "seat_number" VARCHAR(100),
-      "seat_area"  VARCHAR(100),
-      "seller_uid" INTEGER NOT NULL,
-      "status" VARCHAR(100),
-      "customer_uid" INTEGER);`,
+      event_id INTEGER NOT NULL,
+      details TEXT,
+      price INTEGER,
+      seat_number VARCHAR(100),
+      seat_area  VARCHAR(100),
+      seller_uid INTEGER NOT NULL,
+      status VARCHAR(100),
+      customer_uid INTEGER,
+      quantity INTEGER NOT NULL);`,
 };
 export const fetchOffersQuery = {
   name: "fetch-offers",
@@ -20,6 +21,7 @@ export const fetchOffersQuery = {
       o.seat_area,
       o.price,
       o.status,
+      o.quantity,
       JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
     FROM
       offers o
@@ -42,6 +44,7 @@ export const fetchSingleOfferQuery = (id) => {
       o.seat_area,
       o.price,
       o.status,
+      o.quantity,
       JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
     FROM
       offers o
@@ -66,6 +69,7 @@ export const fetchEventOffersQuery = (id) => {
       o.seat_area,
       o.price,
       o.status,
+      o.quantity,
       JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
     FROM
       offers o
@@ -83,7 +87,7 @@ export const fetchEventOffersQuery = (id) => {
 export const createOfferQuery = (body) => {
   return {
     name: "create-offer",
-    text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid, quantity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
     values: [
       body.event_id,
       body.details,
@@ -93,6 +97,7 @@ export const createOfferQuery = (body) => {
       body.seller_uid,
       body.status,
       body.customer_uid,
+      body.quantity,
     ],
   };
 };
@@ -100,7 +105,7 @@ export const createOfferQuery = (body) => {
 export const updateOfferQuery = (offerId, newData) => {
   return {
     name: "update-offer",
-    text: `UPDATE offers SET event_id = $1, details = $2, seat_number = $3, seat_area = $4, price = $5, seller_uid = $6, status = $7, customer_uid = $8 WHERE id = $9`,
+    text: `UPDATE offers SET event_id = $1, details = $2, seat_number = $3, seat_area = $4, price = $5, seller_uid = $6, status = $7, customer_uid = $8, quantity = $9 WHERE id = $10`,
     values: [
       newData.event_id,
       newData.details,
@@ -110,6 +115,7 @@ export const updateOfferQuery = (offerId, newData) => {
       newData.seller_uid,
       newData.status,
       newData.customer_uid,
+      newData.quantity,
       offerId,
     ],
   };
