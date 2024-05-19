@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
+import {  formatDate } from "../helpers/index.helpers.js";
 
 // Function to fetch events
 export async function fetchConcerts() {
@@ -26,10 +27,8 @@ export async function fetchConcerts() {
         const image = el.find("div.img-box > img").attr("src");
         const location = el.find("div.desc-box > div").text();
         const dateString = el.find("div.date-box > div").text();
-
         const date = dateString.slice(0, -6);
         const time = dateString.slice(-6);
-
         const event = {
           title: title.trim(),
           image,

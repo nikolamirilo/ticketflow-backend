@@ -8,6 +8,7 @@ export async function sendEmail(
   full_name,
   title,
   event_title,
+  event_link,
   seller_full_name,
   seller_email,
   total
@@ -34,18 +35,18 @@ export async function sendEmail(
                         <td>
                           <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation">
                             <tbody style="width:100%">
-                              <tr style="width:100%"><img src="https://static.wikeo.be/files/28405/sale.png" style="display:block;outline:none;border:none;text-decoration:none;max-width:100%" width="620" /></tr>
+                              <tr style="width:100%"><img src="https://res.cloudinary.com/ddwahddbb/image/upload/fl_preserve_transparency/v1716138792/Ticket%20Flow%20Static/email_bg_hg3dyy.jpg?_s=public-apps" style="display:block;outline:none;border:none;text-decoration:none;max-width:100%" width="620" /></tr>
                             </tbody>
                           </table>
                           <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="padding:20px;padding-bottom:0">
                             <tbody style="width:100%">
                               <tr style="width:100%">
                                 <td data-id="__react-email-column">
-                                  <h1 style="font-size:24px;font-weight:bold;text-align:center">Hi ${full_name},</h1>
-                                  <h2 style="font-size:20px;font-weight:bold;text-align:center">${title}</h2>
-                                  <p style="font-size:16px;line-height:24px;margin:16px 0"><b>Seller information: </b>${seller_full_name}, ${seller_email}</p>
-                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Amount to be paid: </b>${total},00 RSD</p>
-                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Event: </b>${event_title}</p>
+                                  <h1 style="font-size:24px;font-weight:bold;text-align:center">Zdravo ${full_name},</h1>
+                                  <h2 style="font-size:20px;font-weight:bold;text-align:center">Uspešno ste kupili kartu!</h2>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Dogadjaj: </b>${event_title}</p>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0"><b>Informacije o prodavcu: </b>${seller_full_name}, ${seller_email}</p>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Iznos za uplatu: </b>${total},00 RSD</p>
                                 </td>
                               </tr>
                             </tbody>
@@ -53,7 +54,7 @@ export async function sendEmail(
                           <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="padding:20px;padding-top:0">
                             <tbody style="width:100%">
                               <tr style="width:100%">
-                                <td colSpan="2" data-id="__react-email-column" style="display:flex;justify-content:center;width:100%"><a style="background-color:#e00707;border-radius:3px;color:#FFF;font-weight:bold;border:1px solid rgb(0,0,0, 0.1);cursor:pointer;padding:12px 30px 12px 30px;line-height:100%;text-decoration:none;display:inline-block;max-width:100%" target="_blank"><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%;mso-text-raise:18" hidden>&nbsp;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px">Learn More</span><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]--></span></a></td>
+                                <td colSpan="2" data-id="__react-email-column" style="display:flex;justify-content:center;width:100%"><a href=${event_link} style="background-color:#2dc6de;border-radius:3px;color:#FFF;font-weight:bold;border:1px solid rgb(0,0,0, 0.1);cursor:pointer;padding:12px 30px 12px 30px;line-height:100%;text-decoration:none;display:inline-block;max-width:100%" target="_blank"><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%;mso-text-raise:18" hidden>&nbsp;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px">Informacije o dogadjaju</span><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]--></span></a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -68,7 +69,7 @@ export async function sendEmail(
                       </tr>
                     </tbody>
                   </table>
-                  <p style="font-size:12px;line-height:24px;margin:16px 0;text-align:center;color:rgb(0,0,0, 0.7)">© 2024 | TicketFlow, Belgrade, 11000, Serbia | www.ticket-flow.com</p>
+                  <p style="font-size:12px;line-height:24px;margin:16px 0;text-align:center;color:rgb(0,0,0, 0.7)">© 2024 | TicketFlow, Belgrade, 11000, Serbia | <a href="www.ticketflow.rs">www.ticketflow.rs</a></p>
                 </td>
               </tr>
             </tbody>
@@ -83,5 +84,31 @@ export async function sendEmail(
   } catch (err) {
     console.error("Error sending email:", err);
     res.status(500).send({ message: "Internal server error" });
+  }
+}
+
+
+export function formatDate(dateString) {
+  // Split the date string into parts
+  const parts = dateString.split(' ');
+
+  // Ensure that the parts array has at least three elements
+  if (parts.length >= 3) {
+      // Remove the dot at the end of the year (if it exists)
+      const year = parts[2].endsWith('.') ? parts[2].slice(0, -1) : parts[2];
+
+      // Transform the month name into its numerical representation
+      const monthNames = [
+          "januar", "februar", "mart", "april", "maj", "jun",
+          "jul", "avgust", "septembar", "oktobar", "novembar", "decembar"
+      ];
+      const monthIndex = monthNames.indexOf(parts[1].toLowerCase());
+      const month = monthIndex !== -1 ? (monthIndex + 1).toString().padStart(2, '0') : '01';
+
+      // Return the formatted date string
+      return `${parts[0]}.${month}.${year}.`;
+  } else {
+      // If the parts array doesn't have enough elements, return the original string
+      return dateString;
   }
 }

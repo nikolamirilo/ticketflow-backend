@@ -569,6 +569,10 @@
                 "customer_uid": {
                   "type": "number",
                   "example": 1
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 1
                 }
               },
               "required": [
@@ -579,7 +583,8 @@
                 "seat_area",
                 "seller_uid",
                 "status",
-                "customer_uid"
+                "customer_uid",
+                "quantity"
               ]
             }
           }
@@ -666,6 +671,10 @@
                 "customer_uid": {
                   "type": "number",
                   "example": 1
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 2
                 }
               },
               "required": [
@@ -676,7 +685,8 @@
                 "seat_area",
                 "seller_uid",
                 "status",
-                "customer_uid"
+                "customer_uid",
+                "quantity"
               ]
             }
           }
@@ -752,7 +762,7 @@
               "properties": {
                 "subject": {
                   "type": "string",
-                  "example": "Ticket order"
+                  "example": "Kupovina karte na ticketflow.rs"
                 },
                 "to": {
                   "type": "string",
@@ -778,6 +788,10 @@
                   "type": "string",
                   "example": "peraperic@gmail.com"
                 },
+                "event_link": {
+                  "type": "string",
+                  "example": "https://ticketflow.rs/events/1"
+                },
                 "total": {
                   "type": "number",
                   "example": 2500
@@ -791,6 +805,7 @@
                 "event_title",
                 "seller_full_name",
                 "seller_email",
+                "event_link",
                 "total"
               ]
             }
