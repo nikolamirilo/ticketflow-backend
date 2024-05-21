@@ -760,10 +760,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "subject": {
-                  "type": "string",
-                  "example": "Kupovina karte na ticketflow.rs"
-                },
                 "to": {
                   "type": "string",
                   "example": "ticket.flow.development@gmail.com"
@@ -771,10 +767,6 @@
                 "full_name": {
                   "type": "string",
                   "example": "Nikola Mirilo"
-                },
-                "title": {
-                  "type": "string",
-                  "example": "You purchased ticket successfully"
                 },
                 "event_title": {
                   "type": "string",
@@ -795,18 +787,21 @@
                 "total": {
                   "type": "number",
                   "example": 2500
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 2
                 }
               },
               "required": [
-                "subject",
                 "to",
                 "full_name",
-                "title",
                 "event_title",
                 "seller_full_name",
                 "seller_email",
                 "event_link",
-                "total"
+                "total",
+                "quantity"
               ]
             }
           }

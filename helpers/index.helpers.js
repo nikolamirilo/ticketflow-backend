@@ -1,23 +1,13 @@
 import { Resend } from "resend";
 
-const resend = new Resend("re_f3mKuEop_M3xn2wF5BDGJYwELYHkgNjFd");
+const resend = new Resend("re_3AtN49Zx_P9CXsQdaR1HEZUybagb856SG");
 
-export async function sendEmail(
-  subject,
-  to,
-  full_name,
-  title,
-  event_title,
-  event_link,
-  seller_full_name,
-  seller_email,
-  total
-) {
+export async function sendEmail(body) {
   try {
     const { data, error } = await resend.emails.send({
-      from: "'Ticket Flow'<onboarding@resend.dev>",
-      to,
-      subject,
+      from: "'Ticket Flow'<admin@ticketflow.rs>",
+      to: body.to,
+      subject: "Uspešna kupovina na sajtu ticketflow.rs",
       html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html dir="ltr" lang="en">
         <head>
@@ -41,12 +31,13 @@ export async function sendEmail(
                           <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="padding:20px;padding-bottom:0">
                             <tbody style="width:100%">
                               <tr style="width:100%">
-                                <td data-id="__react-email-column">
-                                  <h1 style="font-size:24px;font-weight:bold;text-align:center">Zdravo ${full_name},</h1>
+                                <td body-id="__react-email-column">
+                                  <h1 style="font-size:24px;font-weight:bold;text-align:center">Zdravo ${body.full_name},</h1>
                                   <h2 style="font-size:20px;font-weight:bold;text-align:center">Uspešno ste kupili kartu!</h2>
-                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Dogadjaj: </b>${event_title}</p>
-                                  <p style="font-size:16px;line-height:24px;margin:16px 0"><b>Informacije o prodavcu: </b>${seller_full_name}, ${seller_email}</p>
-                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Iznos za uplatu: </b>${total},00 RSD</p>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Dogadjaj: </b>${body.event_title}</p>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0"><b>Informacije o prodavcu: </b>${body.seller_full_name}, ${body.seller_email}</p>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Kvantitet: </b>${body.quantity}</p>
+                                  <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:-5px"><b>Iznos za uplatu: </b>${body.total},00 RSD</p>
                                 </td>
                               </tr>
                             </tbody>
@@ -54,7 +45,7 @@ export async function sendEmail(
                           <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="padding:20px;padding-top:0">
                             <tbody style="width:100%">
                               <tr style="width:100%">
-                                <td colSpan="2" data-id="__react-email-column" style="display:flex;justify-content:center;width:100%"><a href=${event_link} style="background-color:#2dc6de;border-radius:3px;color:#FFF;font-weight:bold;border:1px solid rgb(0,0,0, 0.1);cursor:pointer;padding:12px 30px 12px 30px;line-height:100%;text-decoration:none;display:inline-block;max-width:100%" target="_blank"><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%;mso-text-raise:18" hidden>&nbsp;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px">Informacije o dogadjaju</span><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]--></span></a></td>
+                                <td colSpan="2" body-id="__react-email-column" style="display:flex;justify-content:center;width:100%"><a href=${body.event_link} style="background-color:#2dc6de;border-radius:3px;color:#FFF;font-weight:bold;border:1px solid rgb(0,0,0, 0.1);cursor:pointer;padding:12px 30px 12px 30px;line-height:100%;text-decoration:none;display:inline-block;max-width:100%" target="_blank"><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%;mso-text-raise:18" hidden>&nbsp;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px">Informacije o dogadjaju</span><span><!--[if mso]><i style="letter-spacing: 30px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]--></span></a></td>
                               </tr>
                             </tbody>
                           </table>
@@ -106,7 +97,7 @@ export function formatDate(dateString) {
       const month = monthIndex !== -1 ? (monthIndex + 1).toString().padStart(2, '0') : '01';
 
       // Return the formatted date string
-      return `${parts[0]}.${month}.${year}.`;
+      return `${body.parts[0]}.${body.month}.${body.year}.`;
   } else {
       // If the parts array doesn't have enough elements, return the original string
       return dateString;
