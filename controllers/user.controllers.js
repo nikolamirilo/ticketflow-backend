@@ -1,15 +1,15 @@
-import { client } from "../lib/database.config.js";
-import {
+const { client } = require("../lib/database.config.js");
+const {
   fetchUsersQuery,
   createUsersTableQuery,
   fetchSingleUserQuery,
   createUserQuery,
   updateUserQuery,
   deleteUserQuery,
-} from "../queries/user.queries.js";
-import { seedUsersTable } from "../seed/index.seed.js";
+} = require("../queries/user.queries.js");
+const { seedUsersTable } = require("../seed/index.seed.js");
 
-export async function getAllUsers(req, res) {
+async function getAllUsers(req, res) {
   // #swagger.tags = ['Users']
   try {
     await client.query(createUsersTableQuery);
@@ -27,7 +27,7 @@ export async function getAllUsers(req, res) {
   }
 }
 
-export async function getSingleUser(req, res) {
+async function getSingleUser(req, res) {
   // #swagger.tags = ['Users']
   const query = fetchSingleUserQuery(req.params.id);
   try {
@@ -39,7 +39,7 @@ export async function getSingleUser(req, res) {
   }
 }
 
-export async function createUser(req, res) {
+async function createUser(req, res) {
   // #swagger.tags = ['Users']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -66,7 +66,7 @@ export async function createUser(req, res) {
   }
 }
 
-export async function updateUser(req, res) {
+async function updateUser(req, res) {
   // #swagger.tags = ['Users']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -92,7 +92,7 @@ export async function updateUser(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-export async function deleteUser(req, res) {
+async function deleteUser(req, res) {
   // #swagger.tags = ['Users']
   const query = deleteUserQuery(req.params.id);
   try {
@@ -103,3 +103,10 @@ export async function deleteUser(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+module.exports = {
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  updateUser,
+  deleteUser,
+};

@@ -1,5 +1,5 @@
-import { client } from "../lib/database.config.js";
-import {
+const { client } = require("../lib/database.config.js");
+const {
   fetchOffersQuery,
   createOffersTableQuery,
   fetchSingleOfferQuery,
@@ -7,10 +7,10 @@ import {
   updateOfferQuery,
   deleteOfferQuery,
   fetchEventOffersQuery,
-} from "../queries/offer.queries.js";
-import { seedOffersTable } from "../seed/index.seed.js";
+} = require("../queries/offer.queries.js");
+const { seedOffersTable } = require("../seed/index.seed.js");
 
-export async function getAllOffers(req, res) {
+async function getAllOffers(req, res) {
   // #swagger.tags = ['Offers']
   try {
     await client.query(createOffersTableQuery);
@@ -28,7 +28,7 @@ export async function getAllOffers(req, res) {
   }
 }
 
-export async function getSingleOffer(req, res) {
+async function getSingleOffer(req, res) {
   // #swagger.tags = ['Offers']
   const query = fetchSingleOfferQuery(req.params.id);
   try {
@@ -39,7 +39,7 @@ export async function getSingleOffer(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-export async function getEventsOffer(req, res) {
+async function getEventsOffer(req, res) {
   // #swagger.tags = ['Offers']
   const query = fetchEventOffersQuery(req.params.id);
   try {
@@ -51,7 +51,7 @@ export async function getEventsOffer(req, res) {
   }
 }
 
-export async function createOffer(req, res) {
+async function createOffer(req, res) {
   // #swagger.tags = ['Offers']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -77,7 +77,7 @@ export async function createOffer(req, res) {
   }
 }
 
-export async function updateOffer(req, res) {
+async function updateOffer(req, res) {
   // #swagger.tags = ['Offers']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -103,7 +103,7 @@ export async function updateOffer(req, res) {
   }
 }
 
-export async function deleteOffer(req, res) {
+async function deleteOffer(req, res) {
   // #swagger.tags = ['Offers']
   const query = deleteOfferQuery(req.params.id);
   try {
@@ -114,3 +114,11 @@ export async function deleteOffer(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+module.exports = {
+  getAllOffers,
+  getSingleOffer,
+  getEventsOffer,
+  createOffer,
+  updateOffer,
+  deleteOffer,
+};

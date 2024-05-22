@@ -1,5 +1,5 @@
 // Function to fetch events
-export async function fetchParties() {
+async function fetchParties() {
   try {
     const uniqueParties = [];
     return uniqueParties;
@@ -7,3 +7,4 @@ export async function fetchParties() {
     console.log(err);
   }
 }
+module.exports = { fetchParties };

@@ -1,12 +1,12 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   deleteOffer,
   getAllOffers,
   updateOffer,
   getSingleOffer,
   createOffer,
   getEventsOffer,
-} from "../controllers/offer.controllers.js";
+} = require("../controllers/offer.controllers.js");
 
 const offerRoutes = express.Router();
 
@@ -17,4 +17,4 @@ offerRoutes.post("/offers", createOffer);
 offerRoutes.patch("/offers/:id", updateOffer);
 offerRoutes.delete("/offers/:id", deleteOffer);
 
-export default offerRoutes;
+module.exports = offerRoutes;

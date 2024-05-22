@@ -1,8 +1,8 @@
-import { fetchConcerts } from "./concerts.scrapping.js";
-import { fetchParties } from "./parties.scrapping.js";
-import { fetchTheaters } from "./theaters.scrapping.js";
+const { fetchConcerts } = require("./concerts.scrapping.js");
+const { fetchParties } = require("./parties.scrapping.js");
+const { fetchTheaters } = require("./theaters.scrapping.js");
 
-export async function fetchEvents() {
+async function fetchEvents() {
   try {
     const concerts = await fetchConcerts();
     const theaters = await fetchTheaters();
@@ -13,3 +13,4 @@ export async function fetchEvents() {
     console.log(err);
   }
 }
+module.exports = { fetchEvents };

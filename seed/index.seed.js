@@ -1,7 +1,7 @@
-import { client } from "../lib/database.config.js";
-import { createEventsTableQuery } from "../queries/event.queries.js";
+const { client } = require("../lib/database.config.js");
+const { createEventsTableQuery } = require("../queries/event.queries.js");
 
-export async function seedEventsTable(events) {
+async function seedEventsTable(events) {
   await client.query(createEventsTableQuery);
   try {
     for (const event of events) {
@@ -25,7 +25,7 @@ export async function seedEventsTable(events) {
     console.error("Error inserting events into database:", err);
   }
 }
-export const seedOffersTable = {
+const seedOffersTable = {
   name: "seed-offers-table",
   text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid, quantity) VALUES
     (1, 'Front row tickets for the concert', 'A12', 'South', 100, 1, 'open', null, 2),
@@ -34,10 +34,16 @@ export const seedOffersTable = {
   `,
 };
 
-export const seedUsersTable = {
+const seedUsersTable = {
   name: "seed-users-table",
   text: `INSERT INTO users (full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
 ('John Doe', '+1234567890', 'Male', true, '1234567890', 10, true, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae libero nec odio vehicula semper eget sed nisi.', 'john.doe@gmail.com', 'https://g.foolcdn.com/editorial/images/454506/smiling-man-in-suit_gettyimages-509102308.jpg'),
 ('Nikola Peric', '+987654321', 'Male', false, '0987654321', 5, false, 'Nulla nec metus scelerisque, gravida nulla id, suscipit odio. Nullam auctor malesuada efficitur.', 'nikola.peric@gmail.com', 'https://th.bing.com/th/id/OIP.7i2b664G--ip-h1Yk8K84AHaEo?rs=1&pid=ImgDetMain'),
 ('Mika Mikic', '+1122334455', 'Female', true, '1122334455', 20, true, 'Pellentesque pretium ex quis orci interdum, sed suscipit arcu dictum. Vestibulum tempus efficitur ligula, nec convallis ligula posuere quis.', 'mika.mikic@gmail.com', 'https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain') ON CONFLICT DO NOTHING;`,
+};
+module.exports = {
+  seedEventsTable,
+  seedEventsTable,
+  seedUsersTable,
+  seedOffersTable,
 };

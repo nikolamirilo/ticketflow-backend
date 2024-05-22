@@ -1,5 +1,5 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   deleteEvent,
   getAllEvents,
   updateEvent,
@@ -8,7 +8,7 @@ import {
   getCategoryEvents,
   refreshEventData,
   getFilterEvents,
-} from "../controllers/event.controllers.js";
+} = require("../controllers/event.controllers.js");
 
 const eventRoutes = express.Router();
 
@@ -21,4 +21,4 @@ eventRoutes.delete("/events/:id", deleteEvent);
 eventRoutes.get("/refresh-data", refreshEventData);
 eventRoutes.post("/events/search", getFilterEvents);
 
-export default eventRoutes;
+module.exports = eventRoutes;

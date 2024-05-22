@@ -1,5 +1,5 @@
-import { client } from "../lib/database.config.js";
-import {
+const { client } = require("../lib/database.config.js");
+const {
   fetchEventsQuery,
   createEventsTableQuery,
   fetchSingleEventQuery,
@@ -9,11 +9,11 @@ import {
   fetchCategoryEventsQuery,
   deleteEventsTableQuery,
   fetchFilterEventsQuery,
-} from "../queries/event.queries.js";
-import { seedEventsTable } from "../seed/index.seed.js";
-import { fetchEvents } from "../web_scrapping/index.scrapping.js";
+} = require("../queries/event.queries.js");
+const { seedEventsTable } = require("../seed/index.seed.js");
+const { fetchEvents } = require("../web_scrapping/index.scrapping.js");
 
-export async function getAllEvents(req, res) {
+async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']
   await client.query(createEventsTableQuery);
   try {
@@ -31,7 +31,7 @@ export async function getAllEvents(req, res) {
     res.status(500).send({ message: "Internal server error" });
   }
 }
-export async function getCategoryEvents(req, res) {
+async function getCategoryEvents(req, res) {
   // #swagger.tags = ['Events']
   const query = fetchCategoryEventsQuery(req.params.category);
   try {
@@ -42,7 +42,7 @@ export async function getCategoryEvents(req, res) {
     res.status(500).send({ message: "Internal server error" });
   }
 }
-export async function getFilterEvents(req, res) {
+async function getFilterEvents(req, res) {
   // #swagger.tags = ['Events']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -63,7 +63,7 @@ export async function getFilterEvents(req, res) {
   }
 }
 
-export async function getSingleEvent(req, res) {
+async function getSingleEvent(req, res) {
   // #swagger.tags = ['Events']
   const query = fetchSingleEventQuery(req.params.id);
   try {
@@ -75,7 +75,7 @@ export async function getSingleEvent(req, res) {
   }
 }
 
-export async function createEvent(req, res) {
+async function createEvent(req, res) {
   // #swagger.tags = ['Events']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -99,7 +99,7 @@ export async function createEvent(req, res) {
   }
 }
 
-export async function updateEvent(req, res) {
+async function updateEvent(req, res) {
   // #swagger.tags = ['Events']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -123,7 +123,7 @@ export async function updateEvent(req, res) {
   }
 }
 
-export async function deleteEvent(req, res) {
+async function deleteEvent(req, res) {
   // #swagger.tags = ['Events']
   const query = deleteEventQuery(req.params.id);
   try {
@@ -134,7 +134,7 @@ export async function deleteEvent(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-export async function refreshEventData(req, res) {
+async function refreshEventData(req, res) {
   // #swagger.tags = ['Events']
   try {
     await client.query(deleteEventsTableQuery);
@@ -145,3 +145,13 @@ export async function refreshEventData(req, res) {
     res.send({ error });
   }
 }
+module.exports = {
+  getAllEvents,
+  getCategoryEvents,
+  getFilterEvents,
+  getSingleEvent,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+  refreshEventData,
+};

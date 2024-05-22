@@ -1,4 +1,4 @@
-export const createUsersTableQuery = {
+const createUsersTableQuery = {
   name: "create-table-users",
   text: `CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
@@ -14,7 +14,7 @@ export const createUsersTableQuery = {
       image VARCHAR(255)
   );`,
 };
-export const fetchUsersQuery = {
+const fetchUsersQuery = {
   name: "fetch-users",
   text: `SELECT 
   u.full_name,
@@ -39,7 +39,7 @@ GROUP BY
 `,
 };
 
-export const fetchSingleUserQuery = (id) => {
+const fetchSingleUserQuery = (id) => {
   return {
     name: "fetch-single-user",
     text: `SELECT * FROM users WHERE id=$1`,
@@ -47,7 +47,7 @@ export const fetchSingleUserQuery = (id) => {
   };
 };
 
-export const createUserQuery = (body) => {
+const createUserQuery = (body) => {
   return {
     name: "create-user",
     text: `INSERT INTO users (full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
@@ -67,7 +67,7 @@ export const createUserQuery = (body) => {
   };
 };
 
-export const updateUserQuery = (uid, newData) => {
+const updateUserQuery = (uid, newData) => {
   return {
     name: "update-user",
     text: `UPDATE users SET full_name = $1, phone = $2, gender = $3, is_verified = $4, personal_id = $5, tickets_sold = $6, is_reliable_seller = $7, bio = $8, email = $9, image = $10 WHERE id = $11`,
@@ -87,10 +87,18 @@ export const updateUserQuery = (uid, newData) => {
   };
 };
 
-export const deleteUserQuery = (uid) => {
+const deleteUserQuery = (uid) => {
   return {
     name: "delete-user",
     text: "DELETE FROM users WHERE id = $1",
     values: [uid],
   };
+};
+module.exports = {
+  createUsersTableQuery,
+  fetchUsersQuery,
+  fetchSingleUserQuery,
+  createUserQuery,
+  updateUserQuery,
+  deleteUserQuery,
 };

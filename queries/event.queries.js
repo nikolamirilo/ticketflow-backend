@@ -1,4 +1,4 @@
-export const createEventsTableQuery = {
+const createEventsTableQuery = {
   name: "create-events-table",
   text: `CREATE TABLE IF NOT EXISTS events (
     id SERIAL PRIMARY KEY,
@@ -11,23 +11,23 @@ export const createEventsTableQuery = {
     category VARCHAR(100));`,
 };
 
-export const deleteEventsTableQuery = {
+const deleteEventsTableQuery = {
   name: "delete-events-table",
   text: `DROP TABLE IF EXISTS events`,
 };
 
-export const fetchEventsQuery = {
+const fetchEventsQuery = {
   name: "fetch-events",
   text: `SELECT * FROM events`,
 };
-export function fetchCategoryEventsQuery(category) {
+function fetchCategoryEventsQuery(category) {
   return {
     name: "fetch-category-events",
     text: `SELECT * FROM events WHERE category ILIKE '%' || $1 || '%'`,
     values: [category],
   };
 }
-export function fetchFilterEventsQuery(filter) {
+function fetchFilterEventsQuery(filter) {
   return {
     name: "fetch-filter-events",
     text: `SELECT * FROM events WHERE
@@ -40,7 +40,7 @@ export function fetchFilterEventsQuery(filter) {
   };
 }
 
-export const fetchSingleEventQuery = (id) => {
+const fetchSingleEventQuery = (id) => {
   return {
     name: "fetch-single-event",
     text: `SELECT * FROM events WHERE id=$1`,
@@ -48,7 +48,7 @@ export const fetchSingleEventQuery = (id) => {
   };
 };
 
-export const createEventQuery = (event) => {
+const createEventQuery = (event) => {
   return {
     name: "create-event",
     text: `INSERT INTO events (title, image, location, link, date, time, category) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
@@ -64,7 +64,7 @@ export const createEventQuery = (event) => {
   };
 };
 
-export const updateEventQuery = (id, newData) => {
+const updateEventQuery = (id, newData) => {
   return {
     name: "update-event",
     text: `UPDATE events SET title = $1, image = $2, location = $3, link = $4, date = $5, time = $6 category = $7 WHERE id = $8`,
@@ -81,10 +81,22 @@ export const updateEventQuery = (id, newData) => {
   };
 };
 
-export const deleteEventQuery = (id) => {
+const deleteEventQuery = (id) => {
   return {
     name: "delete-event",
     text: "DELETE FROM events WHERE id = $1",
     values: [id],
   };
+};
+
+module.exports = {
+  createEventsTableQuery,
+  deleteEventsTableQuery,
+  fetchEventsQuery,
+  fetchSingleEventQuery,
+  createEventQuery,
+  updateEventQuery,
+  deleteEventQuery,
+  fetchCategoryEventsQuery,
+  fetchFilterEventsQuery,
 };

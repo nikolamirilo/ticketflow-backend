@@ -1,9 +1,8 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
-import { formatDate } from "../helpers/index.helpers.js";
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 // Function to fetch events
-export async function fetchTheaters() {
+async function fetchTheaters() {
   try {
     const events = new Set(); // Use a Set to store unique events
 
@@ -53,3 +52,5 @@ export async function fetchTheaters() {
     console.log(err);
   }
 }
+
+module.exports = { fetchTheaters };

@@ -1,4 +1,4 @@
-export const createOrdersTableQuery = {
+const createOrdersTableQuery = {
   name: "create-orders-table",
   text: `CREATE TABLE IF NOT EXISTS orders (
       id SERIAL PRIMARY KEY,
@@ -11,16 +11,16 @@ export const createOrdersTableQuery = {
       category VARCHAR(100));`,
 };
 
-export const deleteOrdersTableQuery = {
+const deleteOrdersTableQuery = {
   name: "delete-orders-table",
   text: `DROP TABLE IF EXISTS orders`,
 };
 
-export const fetchOrdersQuery = {
+const fetchOrdersQuery = {
   name: "fetch-orders",
   text: `SELECT * FROM orders`,
 };
-export function fetchCategoryOrdersQuery(category) {
+function fetchCategoryOrdersQuery(category) {
   return {
     name: "fetch-orders",
     text: `SELECT * FROM orders WHERE category ILIKE '%' || $1 || '%'`,
@@ -28,14 +28,14 @@ export function fetchCategoryOrdersQuery(category) {
   };
 }
 
-export const fetchSingleOrderQuery = (id) => {
+const fetchSingleOrderQuery = (id) => {
   return {
     name: "fetch-single-order",
     text: `SELECT * FROM orders WHERE id=$1`,
     values: [id],
   };
 };
-export const searchOrdersQuery = (title) => {
+const searchOrdersQuery = (title) => {
   return {
     name: "search-orders",
     text: `SELECT * FROM orders WHERE title ILIKE '%' || $1 || '%'`,
@@ -43,7 +43,7 @@ export const searchOrdersQuery = (title) => {
   };
 };
 
-export const createOrderQuery = (order) => {
+const createOrderQuery = (order) => {
   return {
     name: "create-order",
     text: `INSERT INTO orders (title, image, location, link, date, time, category) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
@@ -59,7 +59,7 @@ export const createOrderQuery = (order) => {
   };
 };
 
-export const updateOrderQuery = (id, newData) => {
+const updateOrderQuery = (id, newData) => {
   return {
     name: "update-order",
     text: `UPDATE orders SET title = $1, image = $2, location = $3, link = $4, date = $5, time = $6 category = $7 WHERE id = $8`,
@@ -76,10 +76,21 @@ export const updateOrderQuery = (id, newData) => {
   };
 };
 
-export const deleteOrderQuery = (id) => {
+const deleteOrderQuery = (id) => {
   return {
     name: "delete-order",
     text: "DELETE FROM orders WHERE id = $1",
     values: [id],
   };
+};
+module.s = {
+  createOrdersTableQuery,
+  deleteOrdersTableQuery,
+  fetchOrdersQuery,
+  fetchSingleOrderQuery,
+  searchOrdersQuery,
+  createOrderQuery,
+  updateOrderQuery,
+  deleteOrderQuery,
+  fetchCategoryOrdersQuery,
 };

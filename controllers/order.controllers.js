@@ -1,6 +1,6 @@
-import { sendEmail } from "../helpers/index.helpers.js";
+const { sendEmail } = require("../helpers/index.helpers.js");
 
-export async function createOrder(req, res) {
+async function createOrder(req, res) {
   // #swagger.tags = ['Order']
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -23,3 +23,4 @@ export async function createOrder(req, res) {
     res.status(500).send({ message: "Internal server error" });
   }
 }
+module.exports = { createOrder };

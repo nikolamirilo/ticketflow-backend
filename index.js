@@ -1,11 +1,11 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import swaggerUi from "swagger-ui-express";
-import swaggerFile from "./swagger_config.json" assert { type: "json" };
-import allRoutes from "./routes/index.routes.js";
-import { client } from "./lib/database.config.js";
-import dotenv from "dotenv";
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger_config.json");
+const allRoutes = require("./routes/index.routes.js");
+const { client } = require("./lib/database.config.js");
+const dotenv = require("dotenv");
 
 dotenv.config();
 

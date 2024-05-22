@@ -1,8 +1,8 @@
-import userRoutes from "./user.routes.js";
-import eventRoutes from "./event.routes.js";
-import offerRoutes from "./offer.routes.js";
-import orderRoutes from "./order.routes.js";
-import express from "express";
+const userRoutes = require("./user.routes.js");
+const eventRoutes = require("./event.routes.js");
+const offerRoutes = require("./offer.routes.js");
+const orderRoutes = require("./order.routes.js");
+const express = require("express");
 
 const indexRoutes = express.Router();
 
@@ -26,4 +26,4 @@ const allRoutes = [
   orderRoutes,
 ];
 
-export default allRoutes;
+module.exports = allRoutes;

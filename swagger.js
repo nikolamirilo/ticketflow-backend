@@ -1,5 +1,5 @@
-import swaggerAutogen from "swagger-autogen";
-import dotenv from "dotenv";
+const swaggerAutogen = require("swagger-autogen");
+const dotenv = require("dotenv");
 
 dotenv.config();
 

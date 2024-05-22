@@ -1,8 +1,8 @@
-import { Resend } from "resend";
+const { Resend } = require("resend");
 
 const resend = new Resend("re_3AtN49Zx_P9CXsQdaR1HEZUybagb856SG");
 
-export async function sendEmail(body) {
+async function sendEmail(body) {
   try {
     const { data, error } = await resend.emails.send({
       from: "'Ticket Flow'<admin@ticketflow.rs>",
@@ -78,28 +78,40 @@ export async function sendEmail(body) {
   }
 }
 
-
-export function formatDate(dateString) {
+function formatDate(dateString) {
   // Split the date string into parts
-  const parts = dateString.split(' ');
+  const parts = dateString.split(" ");
 
   // Ensure that the parts array has at least three elements
   if (parts.length >= 3) {
-      // Remove the dot at the end of the year (if it exists)
-      const year = parts[2].endsWith('.') ? parts[2].slice(0, -1) : parts[2];
+    // Remove the dot at the end of the year (if it exists)
+    const year = parts[2].endsWith(".") ? parts[2].slice(0, -1) : parts[2];
 
-      // Transform the month name into its numerical representation
-      const monthNames = [
-          "januar", "februar", "mart", "april", "maj", "jun",
-          "jul", "avgust", "septembar", "oktobar", "novembar", "decembar"
-      ];
-      const monthIndex = monthNames.indexOf(parts[1].toLowerCase());
-      const month = monthIndex !== -1 ? (monthIndex + 1).toString().padStart(2, '0') : '01';
+    // Transform the month name into its numerical representation
+    const monthNames = [
+      "januar",
+      "februar",
+      "mart",
+      "april",
+      "maj",
+      "jun",
+      "jul",
+      "avgust",
+      "septembar",
+      "oktobar",
+      "novembar",
+      "decembar",
+    ];
+    const monthIndex = monthNames.indexOf(parts[1].toLowerCase());
+    const month =
+      monthIndex !== -1 ? (monthIndex + 1).toString().padStart(2, "0") : "01";
 
-      // Return the formatted date string
-      return `${body.parts[0]}.${body.month}.${body.year}.`;
+    // Return the formatted date string
+    return `${body.parts[0]}.${body.month}.${body.year}.`;
   } else {
-      // If the parts array doesn't have enough elements, return the original string
-      return dateString;
+    // If the parts array doesn't have enough elements, return the original string
+    return dateString;
   }
 }
+
+module.exports = { sendEmail, formatDate };
