@@ -8,7 +8,8 @@ const { client } = require("./lib/database.config.js");
 const dotenv = require("dotenv");
 
 dotenv.config();
-//test 2
+
+//TETS
 
 const app = express();
 
