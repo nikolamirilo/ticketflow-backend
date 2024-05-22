@@ -6,16 +6,15 @@ const swaggerFile = require("./swagger_config.json");
 const allRoutes = require("./routes/index.routes.js");
 const { client } = require("./lib/database.config.js");
 const dotenv = require("dotenv");
+const { initializeRedis, connectRedis } = require("./lib/redis.config.js");
 
 dotenv.config();
-
-//TETS
-//1212
 
 const app = express();
 
 (async () => {
   await client.connect();
+  await connectRedis();
 
   app.use(bodyParser.json());
   app.use(cors());
@@ -49,6 +48,9 @@ const app = express();
   //     console.error("Error running fetchEvents cron job:", error);
   //   }
   // });
+
+  //await client.disconnect();
+  //await redisClient.disconnect();
 
   app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);

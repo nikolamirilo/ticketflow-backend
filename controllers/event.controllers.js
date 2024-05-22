@@ -1,4 +1,5 @@
 const { client } = require("../lib/database.config.js");
+const { getRedisClient } = require("../lib/redis.config.js");
 const {
   fetchEventsQuery,
   createEventsTableQuery,
@@ -13,11 +14,34 @@ const {
 const { seedEventsTable } = require("../seed/index.seed.js");
 const { fetchEvents } = require("../web_scrapping/index.scrapping.js");
 
+
+
 async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']
   await client.query(createEventsTableQuery);
   try {
     const eventsResult = await client.query(fetchEventsQuery);
+    const redisClient = getRedisClient();
+    await redisClient.set("events", JSON.stringify({events:[{
+      id: 1,
+      title: "MERAB AMZOEVI",
+      image: "https://assets.tickets.rs/123abc321/0/Images/ea56654e-2569-4278-bd5c-05d7084e17d4___192x108.jpeg",
+      location: "Zappa Baza",
+      link: "https://tickets.rs/event/merab_amzoevi_12696",
+      date: "20. maj 2024",
+      time: "20:00",
+      category: "concert"
+  },
+  {
+      id: 2,
+      title: "Sestre Gobović - Lepota je u tradiciji",
+      image: "https://assets.tickets.rs/123abc321/0/Images/95984244-e844-4c53-af17-bf5798aec26e___192x108.jpeg",
+      location: "mts dvorana",
+      link: "https://tickets.rs/event/sestre_gobovic_lepota_je_u_tradiciji_12612",
+      date: "20. maj 2024",
+      time: "20:00",
+      category: "concert"
+  }]}))
     if (eventsResult.rows.length > 0) {
       res.send(eventsResult.rows);
     } else {
