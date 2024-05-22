@@ -8,6 +8,7 @@ const { client } = require("./lib/database.config.js");
 const dotenv = require("dotenv");
 
 dotenv.config();
+//test
 
 const app = express();
 
