@@ -6,7 +6,7 @@ const swaggerFile = require("./swagger_config.json");
 const allRoutes = require("./routes/index.routes.js");
 const { client } = require("./lib/database.config.js");
 const dotenv = require("dotenv");
-const { initializeRedis, connectRedis } = require("./lib/redis.config.js");
+// const { initializeRedis, connectRedis } = require("./lib/redis.config.js");
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const app = express();
 
 (async () => {
   await client.connect();
-  await connectRedis();
+  // await connectRedis();
 
   app.use(bodyParser.json());
   app.use(cors());
