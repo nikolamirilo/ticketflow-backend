@@ -26,11 +26,22 @@ async function fetchTheaters() {
           return; // Skip current iteration of the loop
         }
         const link = `https://tickets.rs${el.attr("href")}`;
-        const image = el.find("div.img-box > img").attr("src");
+        const imageUrl = el.find("div.img-box > img").attr("src");
+        const image = imageUrl.replace("192x108", "640x360");
         const location = el.find("div.desc-box > div").text();
         const dateString = el.find("div.date-box > div").text();
-        const date = dateString.slice(0, -6);
-        const time = dateString.slice(-6);
+        let date = ""
+        let time = ""
+        const timeRegex = /(\d{1,2}:\d{2})/; // Matches hh:mm pattern
+        const match = dateString.match(timeRegex);
+        if (match) {
+            time = match[0]; // Extract the matched time
+            const part1 = dateString.split(time)[0].trim()
+            const part2 = dateString.split(time)[1].trim()
+            date = part1 !== "" ? part1 : part2
+        } else {
+            date = dateString
+        }
         const event = {
           title: title.trim(),
           image,

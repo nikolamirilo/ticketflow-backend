@@ -8,7 +8,6 @@ const {
   updateEventQuery,
   deleteEventQuery,
   fetchCategoryEventsQuery,
-  deleteEventsTableQuery,
   fetchFilterEventsQuery,
 } = require("../queries/event.queries.js");
 const { seedEventsTable } = require("../seed/index.seed.js");
@@ -161,14 +160,35 @@ async function deleteEvent(req, res) {
 async function refreshEventData(req, res) {
   // #swagger.tags = ['Events']
   try {
-    await client.query(deleteEventsTableQuery);
-    const events = await fetchEvents();
-    await seedEventsTable(events);
-    res.send({ message: "Seed Events cron job completed." });
+    await client.query(createEventsTableQuery);
+    const fetchedEvents = await fetchEvents();
+    const eventsFromDatabase = await client.query(fetchEventsQuery);
+    const existingEvents = eventsFromDatabase.rows
+    // Identify new events
+    const newEvents = [];
+    for (const fetchedEvent of fetchedEvents) {
+      // Check if the fetched event is already in the database based on title, date, and time
+      const isEventExists = existingEvents.some(existingEvent => (
+        existingEvent.title === fetchedEvent.title &&
+        existingEvent.date === fetchedEvent.date &&
+        existingEvent.time === fetchedEvent.time
+      ));
+      if (!isEventExists) {
+        newEvents.push(fetchedEvent);
+      }
+    }
+    // Seed new events into the database
+    if (newEvents.length > 0) {
+      await seedEventsTable(newEvents);
+    }
+
+    res.send({ message: "Seed Events cron job completed.", newEvents });
   } catch (error) {
+    console.log(error)
     res.send({ error });
   }
 }
+
 module.exports = {
   getAllEvents,
   getCategoryEvents,

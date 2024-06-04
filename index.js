@@ -37,6 +37,11 @@ const app = express();
 
   app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+  app.use("/disconect", async (req, res)=>{
+    await client.end();
+    res.send({message: "Disconnected"})
+  })
+
   // Setting up cron jobs
   // cron.schedule("0 4 * * *", async () => {
   //   try {
@@ -49,7 +54,7 @@ const app = express();
   //   }
   // });
 
-  //await client.disconnect();
+ 
   //await redisClient.disconnect();
 
   app.listen(process.env.PORT, () => {

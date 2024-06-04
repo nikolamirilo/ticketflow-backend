@@ -2,13 +2,13 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 // Function to fetch events
-async function fetchConcerts() {
+async function fetchFestivals() {
   try {
     const events = new Set(); // Use a Set to store unique events
 
     for (let i = 0; i < 10; i++) {
       const { data } = await axios.get(
-        `https://tickets.rs/category/koncerti_muzika?CurrentPage=${i}#fpoint`
+        `https://tickets.rs/category/festivali?CurrentPage=${i}#fpoint`
       );
       if (data == null) {
         break;
@@ -53,12 +53,12 @@ async function fetchConcerts() {
     }
 
     // Convert Set back to array of unique events
-    const uniqueConcerts = Array.from(events).map((event) => JSON.parse(event));
+    const uniqueFestivals = Array.from(events).map((event) => JSON.parse(event));
 
-    return uniqueConcerts;
+    return uniqueFestivals;
   } catch (err) {
     console.log(err);
   }
 }
 
-module.exports = { fetchConcerts };
+module.exports = { fetchFestivals };

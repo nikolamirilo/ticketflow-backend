@@ -1,7 +1,12 @@
+const importUidQuery = {
+  name: "import-uid",
+  text: `CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+}
+
 const createEventsTableQuery = {
   name: "create-events-table",
   text: `CREATE TABLE IF NOT EXISTS events (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(255),
     image VARCHAR(255),
     location VARCHAR(100),
@@ -12,12 +17,12 @@ const createEventsTableQuery = {
 };
 
 const deleteEventsTableQuery = {
-  name: "delete-events-table",
+  name: "delete-table",
   text: `DROP TABLE IF EXISTS events`,
 };
 
 const fetchEventsQuery = {
-  name: "fetch-events",
+  name: "fetch-all-events",
   text: `SELECT * FROM events`,
 };
 function fetchCategoryEventsQuery(category) {
@@ -90,6 +95,7 @@ const deleteEventQuery = (id) => {
 };
 
 module.exports = {
+  importUidQuery,
   createEventsTableQuery,
   deleteEventsTableQuery,
   fetchEventsQuery,

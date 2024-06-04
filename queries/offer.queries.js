@@ -2,7 +2,7 @@ const createOffersTableQuery = {
   name: "create-offers-table",
   text: `CREATE TABLE IF NOT EXISTS offers (
       id SERIAL PRIMARY KEY,
-      event_id INTEGER NOT NULL,
+      event_id VARCHAR(100),
       details TEXT,
       price INTEGER,
       seat_number VARCHAR(100),
@@ -10,8 +10,10 @@ const createOffersTableQuery = {
       seller_uid INTEGER NOT NULL,
       status VARCHAR(100),
       customer_uid INTEGER,
-      quantity INTEGER NOT NULL);`,
+      quantity INTEGER NOT NULL
+    );`,
 };
+
 const fetchOffersQuery = {
   name: "fetch-offers",
   text: `SELECT
@@ -33,6 +35,7 @@ const fetchOffersQuery = {
       events e ON o.event_id = e.id;
 `,
 };
+
 
 const fetchSingleOfferQuery = (id) => {
   return {
