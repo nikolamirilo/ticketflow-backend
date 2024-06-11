@@ -1,5 +1,4 @@
 const createUsersTableQuery = {
-  name: "create-table-users",
   text: `CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       full_name VARCHAR(100) NOT NULL,
@@ -15,7 +14,6 @@ const createUsersTableQuery = {
   );`,
 };
 const fetchUsersQuery = {
-  name: "fetch-users",
   text: `SELECT 
   u.full_name,
   u.phone,
@@ -41,7 +39,6 @@ GROUP BY
 
 const fetchSingleUserQuery = (id) => {
   return {
-    name: "fetch-single-user",
     text: `SELECT * FROM users WHERE id=$1`,
     values: [id],
   };
@@ -49,7 +46,6 @@ const fetchSingleUserQuery = (id) => {
 
 const createUserQuery = (body) => {
   return {
-    name: "create-user",
     text: `INSERT INTO users (full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
     values: [
@@ -69,7 +65,6 @@ const createUserQuery = (body) => {
 
 const updateUserQuery = (uid, newData) => {
   return {
-    name: "update-user",
     text: `UPDATE users SET full_name = $1, phone = $2, gender = $3, is_verified = $4, personal_id = $5, tickets_sold = $6, is_reliable_seller = $7, bio = $8, email = $9, image = $10 WHERE id = $11`,
     values: [
       newData.full_name,
@@ -89,7 +84,6 @@ const updateUserQuery = (uid, newData) => {
 
 const deleteUserQuery = (uid) => {
   return {
-    name: "delete-user",
     text: "DELETE FROM users WHERE id = $1",
     values: [uid],
   };

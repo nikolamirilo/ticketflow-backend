@@ -1,14 +1,16 @@
 const { client } = require("../lib/database.config.js");
-const { createEventsTableQuery, importUidQuery } = require("../queries/event.queries.js");
+const {
+  createEventsTableQuery,
+  importUidQuery,
+} = require("../queries/event.queries.js");
 
 async function seedEventsTable(events) {
-  await client.query(importUidQuery)
+  // await client.query(importUidQuery);
   await client.query(createEventsTableQuery);
   try {
     for (const event of events) {
       // Execute the seed query to insert event into the database
       await client.query({
-        name: "seed-events-table",
         text: `INSERT INTO events (title, image, location, link, date, time, category) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING;`,
         values: [
           event.title,
@@ -27,16 +29,14 @@ async function seedEventsTable(events) {
   }
 }
 const seedOffersTable = {
-  name: "seed-offers-table",
   text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid, quantity) VALUES
-    ('17f77c43-26f8-4731-92c1-49c4ab06ee7e', 'Front row tickets for the concert', 'A12', 'South', 100, 1, 'open', null, 2),
-    ('66c92daf-0669-45b8-8551-a8f10a80b041', 'VIP backstage pass for the festival', 'C2', 'North', 200, 2, 'closed', 1, 0),
-    ('81b39db2-60d8-4df7-9c6f-806d70be8134', 'Exclusive dinner with the artist', 'B10', 'West', 300, 3, 'open', null, 1);
+    (1, 'Front row tickets for the concert', 'A12', 'South', 100, 1, 'open', null, 2),
+    (2, 'VIP backstage pass for the festival', 'C2', 'North', 200, 2, 'closed', 1, 0),
+    (3, 'Exclusive dinner with the artist', 'B10', 'West', 300, 3, 'open', null, 1);
   `,
 };
 
 const seedUsersTable = {
-  name: "seed-users-table",
   text: `INSERT INTO users (full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
 ('John Doe', '+1234567890', 'Male', true, '1234567890', 10, true, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae libero nec odio vehicula semper eget sed nisi.', 'john.doe@gmail.com', 'https://g.foolcdn.com/editorial/images/454506/smiling-man-in-suit_gettyimages-509102308.jpg'),
 ('Nikola Peric', '+987654321', 'Male', false, '0987654321', 5, false, 'Nulla nec metus scelerisque, gravida nulla id, suscipit odio. Nullam auctor malesuada efficitur.', 'nikola.peric@gmail.com', 'https://th.bing.com/th/id/OIP.7i2b664G--ip-h1Yk8K84AHaEo?rs=1&pid=ImgDetMain'),
