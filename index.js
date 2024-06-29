@@ -6,58 +6,64 @@ const swaggerFile = require("./swagger_config.json");
 const allRoutes = require("./routes/index.routes.js");
 const { client } = require("./lib/database.config.js");
 const dotenv = require("dotenv");
-// const { initializeRedis, connectRedis } = require("./lib/redis.config.js");
-
 dotenv.config();
 
 const app = express();
 
-(async () => {
-  await client.connect();
-  // await connectRedis();
+const startServer = async () => {
+  try {
+    await client.connect();
+    console.log('Connected to the database');
 
-  app.use(bodyParser.json());
-  app.use(cors());
+    // await connectRedis();
 
-  // Setting headers
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Methods",
-      "POST, PUT, PATCH, GET, DELETE, OPTIONS"
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    next();
-  });
+    app.use(bodyParser.json());
+    app.use(cors());
 
-  app.use("/", allRoutes);
+    // Setting headers
+    app.use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header(
+        "Access-Control-Allow-Methods",
+        "POST, PUT, PATCH, GET, DELETE, OPTIONS"
+      );
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      );
+      next();
+    });
 
-  app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+    app.use("/", allRoutes);
 
-  app.use("/disconect", async (req, res)=>{
-    await client.end();
-    res.send({message: "Disconnected"})
-  })
+    app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-  // Setting up cron jobs
-  // cron.schedule("0 4 * * *", async () => {
-  //   try {
-  //     await client.query(deleteEventsTableQuery);
-  //     const events = await fetchEvents();
-  //     await seedEventsTable(events);
-  //     console.log("Seed Events cron job completed.");
-  //   } catch (error) {
-  //     console.error("Error running fetchEvents cron job:", error);
-  //   }
-  // });
+    // Uncomment and configure cron jobs as needed
+    // cron.schedule("0 4 * * *", async () => {
+    //   try {
+    //     await client.query(deleteEventsTableQuery);
+    //     const events = await fetchEvents();
+    //     await seedEventsTable(events);
+    //     console.log("Seed Events cron job completed.");
+    //   } catch (error) {
+    //     console.error("Error running fetchEvents cron job:", error);
+    //   }
+    // });
 
- 
-  //await redisClient.disconnect();
+    app.listen(process.env.PORT, () => {
+      console.log(`Server listening on port ${process.env.PORT}`);
+    });
 
-  app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
-  });
-})();
+    process.on('SIGTERM', async () => {
+      console.log('SIGTERM signal received: closing HTTP server');
+      await client.end();
+      process.exit(0);
+    });
+
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+    process.exit(1); // Exit with failure
+  }
+};
+
+startServer();

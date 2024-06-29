@@ -42,9 +42,12 @@ const seedUsersTable = {
 ('Nikola Peric', '+987654321', 'Male', false, '0987654321', 5, false, 'Nulla nec metus scelerisque, gravida nulla id, suscipit odio. Nullam auctor malesuada efficitur.', 'nikola.peric@gmail.com', 'https://th.bing.com/th/id/OIP.7i2b664G--ip-h1Yk8K84AHaEo?rs=1&pid=ImgDetMain'),
 ('Mika Mikic', '+1122334455', 'Female', true, '1122334455', 20, true, 'Pellentesque pretium ex quis orci interdum, sed suscipit arcu dictum. Vestibulum tempus efficitur ligula, nec convallis ligula posuere quis.', 'mika.mikic@gmail.com', 'https://th.bing.com/th/id/OIP.0oIkdrUxUHovwpTx2KFuyAAAAA?rs=1&pid=ImgDetMain') ON CONFLICT DO NOTHING;`,
 };
+
 module.exports = {
   seedEventsTable,
   seedEventsTable,
   seedUsersTable,
   seedOffersTable,
 };
+
+
