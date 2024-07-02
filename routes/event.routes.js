@@ -9,6 +9,8 @@ const {
   refreshEventData,
   getFilterEvents,
 } = require("../controllers/event.controllers.js");
+const { client } = require("../lib/database.config.js");
+const { fetchUsersQuery } = require("../queries/user.queries.js");
 
 const eventRoutes = express.Router();
 

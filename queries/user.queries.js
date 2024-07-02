@@ -10,8 +10,7 @@ const createUsersTableQuery = {
       is_reliable_seller BOOLEAN,
       bio TEXT,
       email VARCHAR(100),
-      image VARCHAR(255),
-  );`,
+      image VARCHAR(255));`,
 };
 const fetchUsersQuery = {
   text: `SELECT
