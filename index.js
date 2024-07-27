@@ -6,16 +6,16 @@ const swaggerFile = require("./swagger_config.json");
 const allRoutes = require("./routes/index.routes.js");
 const { client } = require("./lib/database.config.js");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const app = express();
 
 const startServer = async () => {
   try {
-    await client.connect();
+    // Test the database connection
+    await client.query('SELECT NOW()');
     console.log('Connected to the database');
-
-    // await connectRedis();
 
     app.use(bodyParser.json());
     app.use(cors());
