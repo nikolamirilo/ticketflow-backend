@@ -316,6 +316,10 @@
             "schema": {
               "type": "object",
               "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "user_29w83sxmDNGwOuEthce5gg56FcC"
+                },
                 "full_name": {
                   "type": "string",
                   "example": "John Doe"
@@ -358,6 +362,7 @@
                 }
               },
               "required": [
+                "id",
                 "full_name",
                 "phone",
                 "gender",

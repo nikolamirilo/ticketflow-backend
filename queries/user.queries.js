@@ -1,6 +1,6 @@
 const createUsersTableQuery = {
   text: `CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
+      id VARCHAR(50),
       full_name VARCHAR(100) NOT NULL,
       phone VARCHAR(100),
       gender VARCHAR(100),
@@ -14,37 +14,39 @@ const createUsersTableQuery = {
 };
 const fetchUsersQuery = {
   text: `SELECT
-      u.full_name,
-      u.phone,
-      u.gender,
-      u.is_verified,
-      u.personal_id,
-      u.tickets_sold,
-      u.is_reliable_seller,
-      u.bio,
-      u.email,
-      u.image,
-      COALESCE(
-        JSON_AGG(
-          JSON_BUILD_OBJECT(
-            'offer_id', i.offer_id,
-            'quantity', i.quantity
-          )
-        ) FILTER (WHERE i.item_id IS NOT NULL), '[]'
-      ) AS cart_items
-    FROM
-      users u
-    LEFT JOIN
-      carts c ON c.user_id = u.id
-    LEFT JOIN
-      cart_items i ON i.cart_id = c.cart_id
-    GROUP BY
-      u.id;`,
+  u.id,
+  u.full_name,
+  u.phone,
+  u.gender,
+  u.is_verified,
+  u.personal_id,
+  u.tickets_sold,
+  u.is_reliable_seller,
+  u.bio,
+  u.email,
+  u.image,
+  COALESCE(
+    JSON_AGG(
+      JSON_BUILD_OBJECT(
+        'offer_id', i.offer_id,
+        'quantity', i.quantity
+      )
+    ) FILTER (WHERE i.item_id IS NOT NULL), '[]'
+  ) AS cart_items
+FROM
+  users u
+LEFT JOIN
+  carts c ON c.user_id = u.id
+LEFT JOIN
+  cart_items i ON i.cart_id = c.cart_id
+GROUP BY
+  u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
 };
 
 const fetchSingleUserQuery = (id) => {
   return {
     text: `SELECT
+        u.id,
         u.full_name,
         u.phone,
         u.gender,
@@ -72,16 +74,17 @@ const fetchSingleUserQuery = (id) => {
       WHERE
         u.id = $1
       GROUP BY
-        u.id;`,
+        u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
     values: [id],
   };
 };
 
 const createUserQuery = (body) => {
   return {
-    text: `INSERT INTO users (full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    text: `INSERT INTO users (id, full_name, phone, gender, is_verified, personal_id, tickets_sold, is_reliable_seller, bio, email, image) VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
     values: [
+      body.id,
       body.full_name,
       body.phone,
       body.gender,

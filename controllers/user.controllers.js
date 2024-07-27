@@ -44,6 +44,7 @@ async function createUser(req, res) {
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
+                $id: "user_29w83sxmDNGwOuEthce5gg56FcC",
                 $full_name: "John Doe",
                 $phone: "+1234567890",
                 $gender: "Male",
