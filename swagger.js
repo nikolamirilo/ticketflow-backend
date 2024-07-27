@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const protocol = process.env.APP_URL == "localhost:5000" ? "http" : "https";
+const protocol = process.env.APP_URL === "localhost:5000" ? "http" : "https";
+const host = process.env.APP_URL;
 
 const doc = {
   info: {
@@ -11,7 +12,7 @@ const doc = {
     description:
       "Backend for Ticket Flow Application. Below you can find all API endpoints which are served on this server.",
   },
-  host: process.env.APP_URL,
+  host: host,
   schemes: [protocol],
 };
 
