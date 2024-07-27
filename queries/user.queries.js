@@ -14,67 +14,67 @@ const createUsersTableQuery = {
 };
 const fetchUsersQuery = {
   text: `SELECT
-  u.id,
-  u.full_name,
-  u.phone,
-  u.gender,
-  u.is_verified,
-  u.personal_id,
-  u.tickets_sold,
-  u.is_reliable_seller,
-  u.bio,
-  u.email,
-  u.image,
-  COALESCE(
-    JSON_AGG(
-      JSON_BUILD_OBJECT(
-        'offer_id', i.offer_id,
-        'quantity', i.quantity
-      )
-    ) FILTER (WHERE i.item_id IS NOT NULL), '[]'
-  ) AS cart_items
-FROM
-  users u
-LEFT JOIN
-  carts c ON c.user_id = u.id
-LEFT JOIN
-  cart_items i ON i.cart_id = c.cart_id
-GROUP BY
-  u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
+          u.id,
+          u.full_name,
+          u.phone,
+          u.gender,
+          u.is_verified,
+          u.personal_id,
+          u.tickets_sold,
+          u.is_reliable_seller,
+          u.bio,
+          u.email,
+          u.image,
+          COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'offer_id', i.offer_id,
+                'quantity', i.quantity
+              )
+            ) FILTER (WHERE i.item_id IS NOT NULL), '[]'
+          ) AS cart_items
+        FROM
+          users u
+        LEFT JOIN
+          carts c ON c.user_id = u.id
+        LEFT JOIN
+          cart_items i ON i.cart_id = c.cart_id
+        GROUP BY
+          u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
 };
 
 const fetchSingleUserQuery = (id) => {
   return {
     text: `SELECT
-        u.id,
-        u.full_name,
-        u.phone,
-        u.gender,
-        u.is_verified,
-        u.personal_id,
-        u.tickets_sold,
-        u.is_reliable_seller,
-        u.bio,
-        u.email,
-        u.image,
-        COALESCE(
-          JSON_AGG(
-            JSON_BUILD_OBJECT(
-            'offer_id', i.offer_id,
-            'quantity', i.quantity
-            )
-          ) FILTER (WHERE i.item_id IS NOT NULL), '[]'
-        ) AS cart_items
-      FROM
-        users u
-      LEFT JOIN
-        carts c ON c.user_id = u.id
-      LEFT JOIN
-        cart_items i ON i.cart_id = c.cart_id
-      WHERE
-        u.id = $1
-      GROUP BY
-        u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
+            u.id,
+            u.full_name,
+            u.phone,
+            u.gender,
+            u.is_verified,
+            u.personal_id,
+            u.tickets_sold,
+            u.is_reliable_seller,
+            u.bio,
+            u.email,
+            u.image,
+            COALESCE(
+              JSON_AGG(
+                JSON_BUILD_OBJECT(
+                'offer_id', i.offer_id,
+                'quantity', i.quantity
+                )
+              ) FILTER (WHERE i.item_id IS NOT NULL), '[]'
+            ) AS cart_items
+          FROM
+            users u
+          LEFT JOIN
+            carts c ON c.user_id = u.id
+          LEFT JOIN
+            cart_items i ON i.cart_id = c.cart_id
+          WHERE
+            u.id = $1
+          GROUP BY
+            u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
     values: [id],
   };
 };
