@@ -6,9 +6,9 @@ const createOffersTableQuery = {
       price INTEGER,
       seat_number VARCHAR(100),
       seat_area  VARCHAR(100),
-      seller_uid INTEGER NOT NULL,
+      seller_uid VARCHAR(50) NOT NULL,
       status VARCHAR(100),
-      customer_uid INTEGER,
+      customer_uid VARCHAR(50),
       quantity INTEGER NOT NULL
     );`,
 };

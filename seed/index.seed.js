@@ -30,9 +30,9 @@ async function seedEventsTable(events) {
 }
 const seedOffersTable = {
   text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid, quantity) VALUES
-    (1, 'Front row tickets for the concert', 'A12', 'South', 100, 1, 'open', null, 2),
-    (2, 'VIP backstage pass for the festival', 'C2', 'North', 200, 2, 'closed', 1, 0),
-    (3, 'Exclusive dinner with the artist', 'B10', 'West', 300, 3, 'open', null, 1);
+    (1, 'Front row tickets for the concert', 'A12', 'South', 100, 'user_29w83sxmEENGwOuEthce5gg56Fbb', 'open', null, 2),
+    (2, 'VIP backstage pass for the festival', 'C2', 'North', 200, 'user_29w83sxmTTNGwOuEthce5gg56Fgg', 'closed', 'user_29w83sxmEENGwOuEthce5gg56Fbb', 0),
+    (3, 'Exclusive dinner with the artist', 'B10', 'West', 300, 'user_29w83sxmXXNGwOuEthce5gg56Fee', 'open', null, 1);
   `,
 };
 
