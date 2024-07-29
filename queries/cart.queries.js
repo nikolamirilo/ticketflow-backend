@@ -1,69 +1,65 @@
-const createCartTable = {
-    text: `CREATE TABLE carts (
-        cart_id SERIAL PRIMARY KEY,
-        user_id VARCHAR(50) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );`
-};
-
-const createCartItemsTable = {
+const createCartItemsTableQuery = {
     text: `CREATE TABLE cart_items (
-        item_id SERIAL PRIMARY KEY,
-        cart_id INT NOT NULL,
+        id SERIAL PRIMARY KEY,
+        user_id VARCHAR(50) NOT NULL,
         offer_id INT NOT NULL,
-        quantity INT NOT NULL,
-        FOREIGN KEY (cart_id) REFERENCES carts(cart_id)
+        quantity INT NOT NULL
     );`
 };
 
-const selectCart = (userId) => {
+const addItemToCartQuery = (userId, offerId, quantity) => {
     return {
-        text: `SELECT * FROM carts WHERE user_id=$1;`,
-        values: [userId]
-    };
-};
-const createCart = (userId) => {
-    return {
-        text: `INSERT INTO carts(user_id) VALUES($1);`,
-        values: [userId]
+        text: `INSERT INTO cart_items(user_id, offer_id, quantity) VALUES($1, $2, $3);`,
+        values: [userId, offerId, quantity]
     };
 };
 
-const deleteCart = (userId) => {
+const fetchUserCartItemsQuery = (userId) => {
     return {
-        text: `DELETE FROM carts WHERE user_id=$1;`,
-        values: [userId]
+      text: `SELECT
+                i.quantity,
+              JSON_BUILD_OBJECT(
+                'id', o.id,
+                'details', o.details,
+                'seat_number', o.seat_number,
+                'seat_area', o.seat_area,
+                'price', o.price,
+                'status', o.status,
+                'quantity', i.quantity,
+                'additional_data', JSON_BUILD_OBJECT(
+                  'event', e,
+                  'seller', s,
+                  'customer', c
+                )
+              ) AS offer
+            FROM
+              cart_items i
+            LEFT JOIN
+              offers o ON i.offer_id = o.id
+            LEFT JOIN
+              users s ON o.seller_uid = s.id
+            LEFT JOIN
+              users c ON o.customer_uid = c.id
+            LEFT JOIN
+              events e ON o.event_id = e.id
+            WHERE
+              i.user_id = $1`,
+      values: [userId]
     };
-};
+  };
+  
 
-const addItemToCart = (cartId, offerId, quantity) => {
+const removeItemFromCartQuery = (itemId) => {
     return {
-        text: `INSERT INTO cart_items(cart_id, offer_id, quantity) VALUES($1, $2, $3);`,
-        values: [cartId, offerId, quantity]
-    };
-};
-
-const removeItemFromCart = (itemId) => {
-    return {
-        text: `DELETE FROM cart_items WHERE item_id=$1;`,
+        text: `DELETE FROM cart_items WHERE id=$1;`,
         values: [itemId]
     };
 };
 
-const getCartItems = (cartId) => {
-    return {
-        text: `SELECT * FROM cart_items WHERE cart_id=$1;`,
-        values: [cartId]
-    };
-};
 
 module.exports = {
-    createCartTable,
-    createCartItemsTable,
-    createCart,
-    deleteCart,
-    addItemToCart,
-    removeItemFromCart,
-    getCartItems,
-    selectCart
+    fetchUserCartItemsQuery,
+    createCartItemsTableQuery,
+    addItemToCartQuery,
+    removeItemFromCartQuery,
 };

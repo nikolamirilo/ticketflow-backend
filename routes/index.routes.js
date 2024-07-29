@@ -3,6 +3,7 @@ const eventRoutes = require("./event.routes.js");
 const offerRoutes = require("./offer.routes.js");
 const orderRoutes = require("./order.routes.js");
 const express = require("express");
+const cartRoutes = require("./cart.routes.js");
 
 const indexRoutes = express.Router();
 
@@ -24,6 +25,7 @@ const allRoutes = [
   userRoutes,
   offerRoutes,
   orderRoutes,
+  cartRoutes
 ];
 
 module.exports = allRoutes;

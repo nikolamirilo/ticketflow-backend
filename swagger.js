@@ -22,6 +22,7 @@ const routes = [
   "./routes/user.routes.js",
   "./routes/offer.routes.js",
   "./routes/order.routes.js",
+  "./routes/cart.routes.js",
 ];
 
 swaggerAutogen(outputFile, routes, doc);
