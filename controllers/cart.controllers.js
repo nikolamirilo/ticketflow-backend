@@ -8,8 +8,12 @@ async function getUserCartItems(req, res) {
     try {
     //   await client.query(createCartItemsTable);
       const cartResult = await client.query(query);
+      let total = 0
       if (cartResult.rows.length > 0) {
-        res.status(200).send(cartResult.rows);
+        for (let item of cartResult.rows){
+          total += item.offer.price
+        }
+        res.status(200).send({items: cartResult.rows, total});
       } else {
         const seededCartItemsResult = await client.query(query);
         res.send(seededCartItemsResult.rows);

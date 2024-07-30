@@ -821,7 +821,7 @@
         }
       }
     },
-    "/carts/{id}": {
+    "/cart/{id}": {
       "get": {
         "tags": [
           "Cart"
@@ -845,7 +845,7 @@
         }
       }
     },
-    "/carts": {
+    "/cart": {
       "post": {
         "tags": [
           "Cart"
@@ -864,7 +864,7 @@
                 },
                 "offerId": {
                   "type": "number",
-                  "example": 5
+                  "example": 3
                 },
                 "quantity": {
                   "type": "number",
