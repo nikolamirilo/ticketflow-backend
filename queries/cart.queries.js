@@ -25,7 +25,8 @@ const fetchUserCartItemsQuery = (userId) => {
                 'seat_area', o.seat_area,
                 'price', o.price,
                 'status', o.status,
-                'quantity', i.quantity,
+                'quantity', o.quantity,
+                'document_url', o.document_url,
                 'additional_data', JSON_BUILD_OBJECT(
                   'event', e,
                   'seller', s,
