@@ -578,6 +578,10 @@
                 "quantity": {
                   "type": "number",
                   "example": 1
+                },
+                "document_url": {
+                  "type": "string",
+                  "example": ""
                 }
               },
               "required": [
@@ -589,7 +593,8 @@
                 "seller_uid",
                 "status",
                 "customer_uid",
-                "quantity"
+                "quantity",
+                "document_url"
               ]
             }
           }
@@ -680,6 +685,10 @@
                 "quantity": {
                   "type": "number",
                   "example": 2
+                },
+                "document_url": {
+                  "type": "string",
+                  "example": ""
                 }
               },
               "required": [
@@ -691,7 +700,8 @@
                 "seller_uid",
                 "status",
                 "customer_uid",
-                "quantity"
+                "quantity",
+                "document_url"
               ]
             }
           }

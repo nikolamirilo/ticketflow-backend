@@ -64,7 +64,8 @@ async function createOffer(req, res) {
                 $seller_uid: 2,
                 $status: "open",
                 $customer_uid: 1,
-                $quantity: 1
+                $quantity: 1,
+                $document_url: ""
             }
     } */
   const query = createOfferQuery(req.body);
@@ -90,7 +91,8 @@ async function updateOffer(req, res) {
                 $seller_uid: 2,
                 $status: "open",
                 $customer_uid: 1,
-                $quantity: 2
+                $quantity: 2,
+                $document_url: ""
             }
     } */
   const query = updateOfferQuery(req.params.id, req.body);
