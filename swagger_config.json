@@ -783,40 +783,51 @@
                   "type": "string",
                   "example": "Nikola Mirilo"
                 },
-                "event_title": {
-                  "type": "string",
-                  "example": "Ed Sheeran Concert"
-                },
-                "seller_full_name": {
-                  "type": "string",
-                  "example": "Pera Peric"
-                },
-                "seller_email": {
-                  "type": "string",
-                  "example": "peraperic@gmail.com"
-                },
-                "event_link": {
-                  "type": "string",
-                  "example": "https://ticketflow.rs/events/1"
-                },
-                "total": {
-                  "type": "number",
-                  "example": 2500
-                },
-                "quantity": {
-                  "type": "number",
-                  "example": 2
+                "orders": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "event_title": {
+                        "type": "string",
+                        "example": "AC/DC"
+                      },
+                      "seller_full_name": {
+                        "type": "string",
+                        "example": "Pera Peric"
+                      },
+                      "seller_email": {
+                        "type": "string",
+                        "example": "peraperic@gmail.com"
+                      },
+                      "event_link": {
+                        "type": "string",
+                        "example": "https://ticketflow.rs/events/2"
+                      },
+                      "total": {
+                        "type": "number",
+                        "example": 3500
+                      },
+                      "quantity": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    },
+                    "required": [
+                      "event_title",
+                      "seller_full_name",
+                      "seller_email",
+                      "event_link",
+                      "total",
+                      "quantity"
+                    ]
+                  }
                 }
               },
               "required": [
                 "to",
                 "full_name",
-                "event_title",
-                "seller_full_name",
-                "seller_email",
-                "event_link",
-                "total",
-                "quantity"
+                "orders"
               ]
             }
           }
