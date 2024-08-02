@@ -42,7 +42,7 @@ async function getSingleOffer(req, res) {
 }
 async function getEventOffers(req, res) {
   // #swagger.tags = ['Offers']
-  const query = fetchEventOffersQuery(req.params.uid);
+  const query = fetchEventOffersQuery(req.params.eventId);
   try {
     const result = await client.query(query);
     res.send(result.rows);
