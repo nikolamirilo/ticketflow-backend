@@ -3,7 +3,7 @@ const { getUserCartItems, addNewCartItem } = require("../controllers/cart.contro
 
 const cartRoutes = express.Router();
 
-cartRoutes.get("/cart/:id", getUserCartItems);
+cartRoutes.get("/cart/:uid", getUserCartItems);
 cartRoutes.post("/cart", addNewCartItem);
 
 module.exports = cartRoutes;

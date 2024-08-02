@@ -14,29 +14,49 @@ const createUsersTableQuery = {
 };
 const fetchUsersQuery = {
     text: `SELECT
-          u.id,
-          u.full_name,
-          u.phone,
-          u.gender,
-          u.is_verified,
-          u.personal_id,
-          u.tickets_sold,
-          u.is_reliable_seller,
-          u.bio,
-          u.email,
-          u.image,
-          JSON_AGG(
-            JSON_BUILD_OBJECT(
-              'offer_id', c.offer_id,
-              'quantity', c.quantity
-            )
-          ) FILTER (WHERE c.offer_id IS NOT NULL) AS cart_items
-        FROM
-          users u
-        LEFT JOIN
-          cart_items c ON c.user_id = u.id
-        GROUP BY
-          u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;
+            u.id,
+            u.full_name,
+            u.phone,
+            u.gender,
+            u.is_verified,
+            u.personal_id,
+            u.tickets_sold,
+            u.is_reliable_seller,
+            u.bio,
+            u.email,
+            u.image,
+            COALESCE(
+              JSON_AGG(
+                JSON_BUILD_OBJECT(
+                  'id', o.id,
+                  'details', o.details,
+                  'seat_number', o.seat_number,
+                  'seat_area', o.seat_area,
+                  'price', o.price,
+                  'status', o.status,
+                  'quantity', o.quantity,
+                  'document_url', o.document_url,
+                  'additional_data', JSON_BUILD_OBJECT(
+                    'event', e,
+                    'seller', s,
+                    'customer', c
+                  )
+                )
+              ) FILTER (WHERE o.id IS NOT NULL), '[]'
+            ) AS offers
+          FROM
+            users u
+          LEFT JOIN
+            offers o ON o.seller_uid = u.id
+          LEFT JOIN
+            users s ON o.seller_uid = s.id
+          LEFT JOIN
+            users c ON o.customer_uid = c.id
+          LEFT JOIN
+            events e ON o.event_id = e.id
+          GROUP BY
+            u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;
+
 `,
 };
 
@@ -54,20 +74,40 @@ const fetchSingleUserQuery = (id) => {
             u.bio,
             u.email,
             u.image,
-            JSON_AGG(
-              JSON_BUILD_OBJECT(
-                'offer_id', c.offer_id,
-                'quantity', c.quantity
-              )
-            ) FILTER (WHERE c.offer_id IS NOT NULL) AS cart_items
+            COALESCE(
+              JSON_AGG(
+                JSON_BUILD_OBJECT(
+                  'id', o.id,
+                  'details', o.details,
+                  'seat_number', o.seat_number,
+                  'seat_area', o.seat_area,
+                  'price', o.price,
+                  'status', o.status,
+                  'quantity', o.quantity,
+                  'document_url', o.document_url,
+                  'additional_data', JSON_BUILD_OBJECT(
+                    'event', e,
+                    'seller', s,
+                    'customer', c
+                  )
+                )
+              ) FILTER (WHERE o.id IS NOT NULL), '[]'
+            ) AS offers
           FROM
             users u
           LEFT JOIN
-            cart_items c ON c.user_id = u.id
+            offers o ON o.seller_uid = u.id
+          LEFT JOIN
+            users s ON o.seller_uid = s.id
+          LEFT JOIN
+            users c ON o.customer_uid = c.id
+          LEFT JOIN
+            events e ON o.event_id = e.id
           WHERE
             u.id = $1
           GROUP BY
-            u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;`,
+            u.id, u.full_name, u.phone, u.gender, u.is_verified, u.personal_id, u.tickets_sold, u.is_reliable_seller, u.bio, u.email, u.image;
+`,
     values: [id],
   };
 };

@@ -9,14 +9,6 @@ async function createOrder(req, res) {
             $full_name: 'Nikola Mirilo',
             $orders: [
                 {
-                    $event_title: 'Ed Sheeran Concert',
-                    $seller_full_name: 'Mika Mikic',
-                    $seller_email: 'mikamikic@gmail.com',
-                    $event_link: 'https://ticketflow.rs/events/1',
-                    $total: 2500,
-                    $quantity: 2
-                },
-                {
                     $event_title: 'AC/DC',
                     $seller_full_name: 'Pera Peric',
                     $seller_email: 'peraperic@gmail.com',
@@ -28,8 +20,9 @@ async function createOrder(req, res) {
         }
     } */
   try {
-    const result = await sendEmail(req.body);
-    res.send({ message: `Email sent successfully. Email id: ${result.id}` });
+    const {orders, to, full_name, uid} = req.body
+    const result = await sendEmail({orders, to, full_name});
+    res.send({ message: `Order created successfully. Email id: ${result.id}` });
   } catch (err) {
     console.error("Error sending email:", err);
     res.status(500).send({ message: "Internal server error" });

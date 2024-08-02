@@ -738,7 +738,7 @@
         }
       }
     },
-    "/offers/events/{id}": {
+    "/offers/events/{eventId}": {
       "get": {
         "tags": [
           "Offers"
@@ -746,7 +746,31 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/offers/users/{uid}": {
+      "get": {
+        "tags": [
+          "Offers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "uid",
             "in": "path",
             "required": true,
             "type": "string"
@@ -842,7 +866,7 @@
         }
       }
     },
-    "/cart/{id}": {
+    "/cart/{uid}": {
       "get": {
         "tags": [
           "Cart"
@@ -850,7 +874,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "uid",
             "in": "path",
             "required": true,
             "type": "string"

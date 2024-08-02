@@ -3,7 +3,7 @@ const { createCartItemsTable, fetchUserCartItems, fetchUserCartItemsQuery, addIt
 
 async function getUserCartItems(req, res) {
     // #swagger.tags = ['Cart']
-    const userId = req.params.id
+    const userId = req.params.uid
     const query = fetchUserCartItemsQuery(userId)
     try {
     //   await client.query(createCartItemsTable);

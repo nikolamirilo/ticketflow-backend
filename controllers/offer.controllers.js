@@ -7,6 +7,7 @@ const {
   updateOfferQuery,
   deleteOfferQuery,
   fetchEventOffersQuery,
+  fetchUserOffersQuery,
 } = require("../queries/offer.queries.js");
 const { seedOffersTable } = require("../seed/index.seed.js");
 
@@ -39,9 +40,9 @@ async function getSingleOffer(req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
-async function getEventsOffer(req, res) {
+async function getEventOffers(req, res) {
   // #swagger.tags = ['Offers']
-  const query = fetchEventOffersQuery(req.params.id);
+  const query = fetchEventOffersQuery(req.params.uid);
   try {
     const result = await client.query(query);
     res.send(result.rows);
@@ -119,7 +120,7 @@ async function deleteOffer(req, res) {
 module.exports = {
   getAllOffers,
   getSingleOffer,
-  getEventsOffer,
+  getEventOffers,
   createOffer,
   updateOffer,
   deleteOffer,
