@@ -35,7 +35,7 @@ const fetchUsersQuery = {
                   'price', o.price,
                   'status', o.status,
                   'quantity', o.quantity,
-                  'document_url', o.document_url,
+                  'files', o.files,
                   'additional_data', JSON_BUILD_OBJECT(
                     'event', e,
                     'seller', s,
@@ -84,7 +84,7 @@ const fetchSingleUserQuery = (id) => {
                   'price', o.price,
                   'status', o.status,
                   'quantity', o.quantity,
-                  'document_url', o.document_url,
+                  'files', o.files,
                   'additional_data', JSON_BUILD_OBJECT(
                     'event', e,
                     'seller', s,

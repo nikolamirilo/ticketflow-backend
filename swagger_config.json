@@ -579,9 +579,10 @@
                   "type": "number",
                   "example": 1
                 },
-                "document_url": {
-                  "type": "string",
-                  "example": ""
+                "files": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
                 }
               },
               "required": [
@@ -594,7 +595,7 @@
                 "status",
                 "customer_uid",
                 "quantity",
-                "document_url"
+                "files"
               ]
             }
           }
@@ -686,9 +687,10 @@
                   "type": "number",
                   "example": 2
                 },
-                "document_url": {
-                  "type": "string",
-                  "example": ""
+                "files": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
                 }
               },
               "required": [
@@ -701,7 +703,7 @@
                 "status",
                 "customer_uid",
                 "quantity",
-                "document_url"
+                "files"
               ]
             }
           }

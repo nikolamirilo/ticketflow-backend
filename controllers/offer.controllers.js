@@ -66,16 +66,17 @@ async function createOffer(req, res) {
                 $status: "open",
                 $customer_uid: 1,
                 $quantity: 1,
-                $document_url: ""
+                $files: []
             }
     } */
   const query = createOfferQuery(req.body);
   try {
     await client.query(query);
-    res.send({ message: "Successfully created offer" });
+    console.log(rsp)
+    res.send({ message: "Successfully created offer", status: 200 });
   } catch (error) {
-    console.error("Error creating offer:", error);
-    res.status(500).json({ message: "Internal server error" });
+      console.error("Error creating offer:", error);
+      res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -93,7 +94,7 @@ async function updateOffer(req, res) {
                 $status: "open",
                 $customer_uid: 1,
                 $quantity: 2,
-                $document_url: ""
+                $files: []
             }
     } */
   const query = updateOfferQuery(req.params.id, req.body);

@@ -10,7 +10,7 @@ const createOffersTableQuery = {
       status VARCHAR(100),
       customer_uid VARCHAR(50),
       quantity INTEGER NOT NULL,
-      document_url VARCHAR(2083)
+      files TEXT[]
     );`,
 };
 
@@ -23,7 +23,7 @@ const fetchOffersQuery = {
       o.price,
       o.status,
       o.quantity,
-      o.document_url,
+      o.files,
       JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
     FROM
       offers o
@@ -46,7 +46,7 @@ const fetchSingleOfferQuery = (id) => {
       o.price,
       o.status,
       o.quantity,
-      o.document_url,
+      o.files,
       JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
     FROM
       offers o
@@ -71,7 +71,7 @@ const fetchEventOffersQuery = (id) => {
       o.price,
       o.status,
       o.quantity,
-      o.document_url,
+      o.files,
       JSON_BUILD_OBJECT('event', e, 'seller', s, 'customer', c) AS additional_data
     FROM
       offers o
@@ -88,7 +88,7 @@ const fetchEventOffersQuery = (id) => {
 };
 const createOfferQuery = (body) => {
   return {
-    text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid, quantity, document_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    text: `INSERT INTO offers (event_id, details, seat_number, seat_area, price, seller_uid, status, customer_uid, quantity, files) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
     values: [
       body.event_id,
       body.details,
@@ -99,14 +99,14 @@ const createOfferQuery = (body) => {
       body.status,
       body.customer_uid,
       body.quantity,
-      body.document_url
+      body.files
     ],
   };
 };
 
 const updateOfferQuery = (offerId, newData) => {
   return {
-    text: `UPDATE offers SET event_id = $1, details = $2, seat_number = $3, seat_area = $4, price = $5, seller_uid = $6, status = $7, customer_uid = $8, quantity = $9, document_url=$10 WHERE id = $10`,
+    text: `UPDATE offers SET event_id = $1, details = $2, seat_number = $3, seat_area = $4, price = $5, seller_uid = $6, status = $7, customer_uid = $8, quantity = $9, files=$10 WHERE id = $10`,
     values: [
       newData.event_id,
       newData.details,
@@ -117,7 +117,7 @@ const updateOfferQuery = (offerId, newData) => {
       newData.status,
       newData.customer_uid,
       newData.quantity,
-      newData.document_url,
+      newData.files,
       offerId,
     ],
   };
