@@ -785,6 +785,10 @@
                   "type": "string",
                   "example": "Nikola Mirilo"
                 },
+                "total": {
+                  "type": "number",
+                  "example": 5000
+                },
                 "orders": {
                   "type": "array",
                   "items": {
@@ -829,6 +833,7 @@
               "required": [
                 "to",
                 "full_name",
+                "total",
                 "orders"
               ]
             }

@@ -54,7 +54,7 @@ async function sendEmail(body) {
                                         </tbody>
                                     </table>
                                     <h1 style="font-size:24px;font-weight:bold;text-align:center">Zdravo ${body.full_name},</h1>
-                                    <h2 style="font-size:20px;font-weight:bold;text-align:center">Uspešno ste kupili kartu!</h2>
+                                    <h2 style="font-size:20px;font-weight:bold;text-align:center">${body.orders.length >1 ? "Uspešno ste kupili karte!" : "Uspešno ste kupili kartu!"}</h2>
                                     <table align="center" width="100%" border="1" cellPadding="5" cellSpacing="0" role="presentation"
                                         style="padding:20px;padding-bottom:0; border-collapse: collapse;">
                                         <thead style="width:100%;background-color:#f9f9f9;">
@@ -74,8 +74,16 @@ async function sendEmail(body) {
                                             </tr>
                                         </thead>
                                         <tbody style="width:100%">
-                                            ${generateOrderRows(body.orders)}
+                                        ${generateOrderRows(body.orders)}
                                         </tbody>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 1rem auto;">
+                                        <tr>
+                                            <td align="center" style="font-weight: bold; font-size: 1.2rem;">
+                                                <span>Ukupno: </span>
+                                                <span>${body.total},00 RSD</span>
+                                            </td>
+                                        </tr>
                                     </table>
                                     <!-- <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0"
                                         role="presentation" style="padding:20px;padding-top:0">

@@ -7,6 +7,7 @@ async function createOrder(req, res) {
         schema: {
             $to: "ticket.flow.development@gmail.com",
             $full_name: 'Nikola Mirilo',
+            $total: 5000,
             $orders: [
                 {
                     $event_title: 'AC/DC',
@@ -20,8 +21,8 @@ async function createOrder(req, res) {
         }
     } */
   try {
-    const {orders, to, full_name, uid} = req.body
-    const result = await sendEmail({orders, to, full_name});
+    const {orders, to, full_name, total} = req.body
+    const result = await sendEmail({orders, to, full_name, total});
     res.send({ message: `Order created successfully. Email id: ${result.id}` });
   } catch (err) {
     console.error("Error sending email:", err);
