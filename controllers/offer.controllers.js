@@ -72,7 +72,6 @@ async function createOffer(req, res) {
   const query = createOfferQuery(req.body);
   try {
     await client.query(query);
-    console.log(rsp)
     res.send({ message: "Successfully created offer", status: 200 });
   } catch (error) {
       console.error("Error creating offer:", error);
