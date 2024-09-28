@@ -13,6 +13,12 @@ const addItemToCartQuery = (userId, offerId, quantity) => {
         values: [userId, offerId, quantity]
     };
 };
+const deleteCartItemsQuery = (userId) => {
+    return {
+        text: `DELETE FROM cart_items WHERE user_id=$1;;`,
+        values: [userId]
+    };
+};
 
 const fetchUserCartItemsQuery = (userId) => {
     return {
@@ -63,4 +69,5 @@ module.exports = {
     createCartItemsTableQuery,
     addItemToCartQuery,
     removeItemFromCartQuery,
+    deleteCartItemsQuery
 };

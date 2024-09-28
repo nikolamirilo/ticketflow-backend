@@ -23,7 +23,7 @@ async function createOrder(req, res) {
   try {
     const {orders, to, full_name, total} = req.body
     const result = await sendEmail({orders, to, full_name, total});
-    res.send({ message: `Order created successfully. Email id: ${result.id}` });
+    res.send({ message: `Order created successfully. Email id: ${result.id}`, status:200 });
   } catch (err) {
     console.error("Error sending email:", err);
     res.status(500).send({ message: "Internal server error" });

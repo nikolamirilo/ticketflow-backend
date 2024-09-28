@@ -1,5 +1,5 @@
 const { client } = require("../lib/database.config");
-const { createCartItemsTable, fetchUserCartItems, fetchUserCartItemsQuery, addItemToCartQuery } = require("../queries/cart.queries");
+const { createCartItemsTable, fetchUserCartItems, fetchUserCartItemsQuery, addItemToCartQuery, deleteCartItemsQuery } = require("../queries/cart.queries");
 
 async function getUserCartItems(req, res) {
     // #swagger.tags = ['Cart']
@@ -43,8 +43,27 @@ async function addNewCartItem(req, res) {
       res.status(500).send({ message: "Internal server error" });
     }
   }
+async function deleteAllCartItems(req, res) {
+    // #swagger.tags = ['Cart']
+      /*  #swagger.parameters['body'] = {
+            in: 'body',
+            schema: {
+                $userId: "user_29w83sxmXXNGwOuEthce5gg56Fee"
+            }
+    } */
+    const {userId} = req.body
+    const query = deleteCartItemsQuery(userId)
+    try {
+      await client.query(query);
+      res.status(200).send({message: "Succesully deleted cart items"});
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+      res.status(500).send({ message: "Internal server error" });
+    }
+  }
 
   module.exports = {
     getUserCartItems,
-    addNewCartItem
+    addNewCartItem,
+    deleteAllCartItems
   }
