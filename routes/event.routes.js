@@ -15,7 +15,7 @@ const { fetchUsersQuery } = require("../queries/user.queries.js");
 const eventRoutes = express.Router();
 
 eventRoutes.get("/events", getAllEvents);
-eventRoutes.get("/events/category/:category", getCategoryEvents);
+eventRoutes.get("/events/category/:category/:page", getCategoryEvents);
 eventRoutes.get("/events/:id", getSingleEvent);
 eventRoutes.post("/events", createEvent);
 eventRoutes.patch("/events/:id", updateEvent);

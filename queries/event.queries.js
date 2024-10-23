@@ -19,11 +19,13 @@ const deleteEventsTableQuery = {
 };
 
 const fetchEventsQuery = {
-  text: `SELECT * FROM events`,
+  text: `SELECT * FROM events;`,
 };
-function fetchCategoryEventsQuery(category) {
+
+function fetchCategoryEventsQuery(category, page) {
+  const offset = (Number(page) - 1) * 10;
   return {
-    text: `SELECT * FROM events WHERE category ILIKE '%' || $1 || '%'`,
+    text: `SELECT * FROM events WHERE category ILIKE '%' || $1 || '%' LIMIT 10 OFFSET ${offset};`,
     values: [category],
   };
 }

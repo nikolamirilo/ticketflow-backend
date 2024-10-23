@@ -13,34 +13,32 @@ const {
 const { seedEventsTable } = require("../seed/index.seed.js");
 const { fetchEvents } = require("../web_scrapping/index.scrapping.js");
 
-
-
 async function getAllEvents(req, res) {
   // #swagger.tags = ['Events']
   await client.query(createEventsTableQuery);
   try {
     const eventsResult = await client.query(fetchEventsQuery);
-  //   const redisClient = getRedisClient();
-  //   await redisClient.set("events", JSON.stringify({events:[{
-  //     id: 1,
-  //     title: "MERAB AMZOEVI",
-  //     image: "https://assets.tickets.rs/123abc321/0/Images/ea56654e-2569-4278-bd5c-05d7084e17d4___192x108.jpeg",
-  //     location: "Zappa Baza",
-  //     link: "https://tickets.rs/event/merab_amzoevi_12696",
-  //     date: "20. maj 2024",
-  //     time: "20:00",
-  //     category: "concert"
-  // },
-  // {
-  //     id: 2,
-  //     title: "Sestre Gobović - Lepota je u tradiciji",
-  //     image: "https://assets.tickets.rs/123abc321/0/Images/95984244-e844-4c53-af17-bf5798aec26e___192x108.jpeg",
-  //     location: "mts dvorana",
-  //     link: "https://tickets.rs/event/sestre_gobovic_lepota_je_u_tradiciji_12612",
-  //     date: "20. maj 2024",
-  //     time: "20:00",
-  //     category: "concert"
-  // }]}))
+    //   const redisClient = getRedisClient();
+    //   await redisClient.set("events", JSON.stringify({events:[{
+    //     id: 1,
+    //     title: "MERAB AMZOEVI",
+    //     image: "https://assets.tickets.rs/123abc321/0/Images/ea56654e-2569-4278-bd5c-05d7084e17d4___192x108.jpeg",
+    //     location: "Zappa Baza",
+    //     link: "https://tickets.rs/event/merab_amzoevi_12696",
+    //     date: "20. maj 2024",
+    //     time: "20:00",
+    //     category: "concert"
+    // },
+    // {
+    //     id: 2,
+    //     title: "Sestre Gobović - Lepota je u tradiciji",
+    //     image: "https://assets.tickets.rs/123abc321/0/Images/95984244-e844-4c53-af17-bf5798aec26e___192x108.jpeg",
+    //     location: "mts dvorana",
+    //     link: "https://tickets.rs/event/sestre_gobovic_lepota_je_u_tradiciji_12612",
+    //     date: "20. maj 2024",
+    //     time: "20:00",
+    //     category: "concert"
+    // }]}))
     if (eventsResult.rows.length > 0) {
       res.send(eventsResult.rows);
     } else {
@@ -56,7 +54,7 @@ async function getAllEvents(req, res) {
 }
 async function getCategoryEvents(req, res) {
   // #swagger.tags = ['Events']
-  const query = fetchCategoryEventsQuery(req.params.category);
+  const query = fetchCategoryEventsQuery(req.params.category, req.params.page);
   try {
     const eventsResult = await client.query(query);
     res.send(eventsResult.rows);
@@ -163,16 +161,17 @@ async function refreshEventData(req, res) {
     await client.query(createEventsTableQuery);
     const fetchedEvents = await fetchEvents();
     const eventsFromDatabase = await client.query(fetchEventsQuery);
-    const existingEvents = eventsFromDatabase.rows
+    const existingEvents = eventsFromDatabase.rows;
     // Identify new events
     const newEvents = [];
     for (const fetchedEvent of fetchedEvents) {
       // Check if the fetched event is already in the database based on title, date, and time
-      const isEventExists = existingEvents.some(existingEvent => (
-        existingEvent.title === fetchedEvent.title &&
-        existingEvent.date === fetchedEvent.date &&
-        existingEvent.time === fetchedEvent.time
-      ));
+      const isEventExists = existingEvents.some(
+        (existingEvent) =>
+          existingEvent.title === fetchedEvent.title &&
+          existingEvent.date === fetchedEvent.date &&
+          existingEvent.time === fetchedEvent.time
+      );
       if (!isEventExists) {
         newEvents.push(fetchedEvent);
       }
@@ -184,7 +183,7 @@ async function refreshEventData(req, res) {
 
     res.send({ message: "Seed Events cron job completed.", newEvents });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.send({ error });
   }
 }

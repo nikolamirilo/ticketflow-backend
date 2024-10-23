@@ -8,6 +8,7 @@ const {
   deleteOfferQuery,
   fetchEventOffersQuery,
   fetchUserOffersQuery,
+  fetchRecommendedOffers,
 } = require("../queries/offer.queries.js");
 const { seedOffersTable } = require("../seed/index.seed.js");
 
@@ -16,6 +17,24 @@ async function getAllOffers(req, res) {
   try {
     await client.query(createOffersTableQuery);
     const offersResult = await client.query(fetchOffersQuery);
+    if (offersResult.rows.length > 0) {
+      res.send(offersResult.rows);
+    } else {
+      await client.query(seedOffersTable);
+      const seededOffersResult = await client.query(fetchOffersQuery);
+      res.send(seededOffersResult.rows);
+    }
+  } catch (error) {
+    console.error("Error fetching offers:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+}
+async function getRecommendedOffers(req, res) {
+  // #swagger.tags = ['Offers']
+  try {
+    await client.query(createOffersTableQuery);
+    const query = fetchRecommendedOffers();
+    const offersResult = await client.query(query);
     if (offersResult.rows.length > 0) {
       res.send(offersResult.rows);
     } else {
@@ -64,6 +83,7 @@ async function createOffer(req, res) {
                 $seat_area: "South",
                 $seller_uid: 2,
                 $status: "open",
+                $is_recommended: false,
                 $customer_uid: 1,
                 $quantity: 1,
                 $files: []
@@ -74,8 +94,8 @@ async function createOffer(req, res) {
     await client.query(query);
     res.send({ message: "Successfully created offer", status: 200 });
   } catch (error) {
-      console.error("Error creating offer:", error);
-      res.status(500).json({ message: "Internal server error" });
+    console.error("Error creating offer:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -91,6 +111,7 @@ async function updateOffer(req, res) {
                 $seat_area: "South",
                 $seller_uid: 2,
                 $status: "open",
+                $is_recommended: false,
                 $customer_uid: 1,
                 $quantity: 2,
                 $files: []
@@ -124,4 +145,5 @@ module.exports = {
   createOffer,
   updateOffer,
   deleteOffer,
+  getRecommendedOffers,
 };

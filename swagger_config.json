@@ -89,7 +89,7 @@
         }
       }
     },
-    "/events/category/{category}": {
+    "/events/category/{category}/{page}": {
       "get": {
         "tags": [
           "Events"
@@ -98,6 +98,12 @@
         "parameters": [
           {
             "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
             "in": "path",
             "required": true,
             "type": "string"
@@ -571,6 +577,10 @@
                   "type": "string",
                   "example": "open"
                 },
+                "is_recommended": {
+                  "type": "boolean",
+                  "example": false
+                },
                 "customer_uid": {
                   "type": "number",
                   "example": 1
@@ -593,6 +603,7 @@
                 "seat_area",
                 "seller_uid",
                 "status",
+                "is_recommended",
                 "customer_uid",
                 "quantity",
                 "files"
@@ -600,6 +611,22 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/offers/recommended": {
+      "get": {
+        "tags": [
+          "Offers"
+        ],
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -679,6 +706,10 @@
                   "type": "string",
                   "example": "open"
                 },
+                "is_recommended": {
+                  "type": "boolean",
+                  "example": false
+                },
                 "customer_uid": {
                   "type": "number",
                   "example": 1
@@ -701,6 +732,7 @@
                 "seat_area",
                 "seller_uid",
                 "status",
+                "is_recommended",
                 "customer_uid",
                 "quantity",
                 "files"
@@ -903,6 +935,38 @@
                 "userId",
                 "offerId",
                 "quantity"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "user_29w83sxmXXNGwOuEthce5gg56Fee"
+                }
+              },
+              "required": [
+                "userId"
               ]
             }
           }
