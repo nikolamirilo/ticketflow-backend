@@ -22,6 +22,12 @@ const fetchEventsQuery = {
   text: `SELECT * FROM events;`,
 };
 
+function fetchCountCategoryEvents(category) {
+  return {
+    text: "SELECT COUNT(*) FROM events WHERE category = $1;",
+    values: [category],
+  };
+}
 function fetchCategoryEventsQuery(category, page) {
   const offset = (Number(page) - 1) * 10;
   return {
@@ -91,6 +97,7 @@ module.exports = {
   createEventsTableQuery,
   deleteEventsTableQuery,
   fetchEventsQuery,
+  fetchCountCategoryEvents,
   fetchSingleEventQuery,
   createEventQuery,
   updateEventQuery,

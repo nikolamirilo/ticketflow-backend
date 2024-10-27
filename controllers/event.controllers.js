@@ -9,6 +9,7 @@ const {
   deleteEventQuery,
   fetchCategoryEventsQuery,
   fetchFilterEventsQuery,
+  fetchCountCategoryEvents,
 } = require("../queries/event.queries.js");
 const { seedEventsTable } = require("../seed/index.seed.js");
 const { fetchEvents } = require("../web_scrapping/index.scrapping.js");
@@ -55,9 +56,17 @@ async function getAllEvents(req, res) {
 async function getCategoryEvents(req, res) {
   // #swagger.tags = ['Events']
   const query = fetchCategoryEventsQuery(req.params.category, req.params.page);
+  const countQuery = fetchCountCategoryEvents(req.params.category);
   try {
     const eventsResult = await client.query(query);
-    res.send(eventsResult.rows);
+    const totalEvents = await client.query(countQuery);
+    const page = Number(req.params.page);
+    const totalPages = Math.ceil(Number(totalEvents.rows[0].count) / 10);
+    res.send({
+      events: eventsResult.rows,
+      page: page,
+      total: totalPages,
+    });
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send({ message: "Internal server error" });
