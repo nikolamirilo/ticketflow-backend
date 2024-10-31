@@ -29,9 +29,9 @@ function fetchCountCategoryEvents(category) {
   };
 }
 function fetchCategoryEventsQuery(category, page) {
-  const offset = (Number(page) - 1) * 10;
+  const offset = (Number(page) - 1) * 50;
   return {
-    text: `SELECT * FROM events WHERE category ILIKE '%' || $1 || '%' LIMIT 10 OFFSET ${offset};`,
+    text: `SELECT * FROM events WHERE category ILIKE '%' || $1 || '%' LIMIT 50 OFFSET ${offset};`,
     values: [category],
   };
 }

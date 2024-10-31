@@ -61,7 +61,7 @@ async function getCategoryEvents(req, res) {
     const eventsResult = await client.query(query);
     const totalEvents = await client.query(countQuery);
     const page = Number(req.params.page);
-    const totalPages = Math.ceil(Number(totalEvents.rows[0].count) / 10);
+    const totalPages = Math.ceil(Number(totalEvents.rows[0].count) / 50);
     res.send({
       events: eventsResult.rows,
       page: page,
